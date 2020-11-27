@@ -207,7 +207,9 @@ class ApplicationView(APIView):
                 "userName": application.user_name,
                 "userId": application.user_id,
                 "applicantName": application.applicant_name,
-                "respondentName": application.respondent_name}
+                "respondentName": application.respondent_name,
+                "protectedPartyName": application.protected_party_name,
+                "protectedChildName": application.protected_child_name}
         return Response(data)
 
     def post(self, request: Request):
@@ -233,6 +235,8 @@ class ApplicationView(APIView):
             user_name=body.get("userName"),
             key_id=steps_key_id,
             respondent_name=body.get("respondentName"),
+            protected_party_name=body.get("protectedPartyName"),
+            protected_child_name=body.get("protectedChildName"),
             user_id=uid)
 
         db_app.save()
@@ -258,7 +262,9 @@ class ApplicationView(APIView):
         application_queryset.update(applicant_name=body.get("applicantName"))
         application_queryset.update(user_name=body.get("userName"))
         application_queryset.update(respondent_name=body.get("respondentName"))
-        return Response("success")
+        application_queryset.update(protected_party_name=body.get("protectedPartyName"))
+        application_queryset.update(protected_child_name=body.get("protectedChildName"))
+        return Response("success")             
 
     def delete(self, request, pk, format=None):
         uid = request.user.id
