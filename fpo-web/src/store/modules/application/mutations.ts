@@ -10,6 +10,7 @@ export const mutations: MutationTree<ApplicationState> = {
     state.type = "default";
     state.userName = "";
     state.lastPrinted = null;
+    state.dateFiled = null;
     state.lastUpdate = null;
     state.steps = new Array<Step>();
     // Getting started START
@@ -357,6 +358,9 @@ export const mutations: MutationTree<ApplicationState> = {
   setLastPrinted(state, lastPrinted) {
     state.lastPrinted = lastPrinted;
   },
+  setDateFiled(state, dateFiled) {
+    state.dateFiled = dateFiled;
+  },
   setCurrentApplication(state, application) {
     state.id = application.id;    
     state.type = application.type;    
@@ -365,6 +369,7 @@ export const mutations: MutationTree<ApplicationState> = {
     state.currentStep = application.currentStep;
     state.allCompleted = application.allCompleted;
     state.lastPrinted = application.lastPrinted;
+    state.dateFiled = application.dateFiled;
     state.userType = application.userType;
     state.userName = application.userName;
     state.applicantName = application.applicantName;

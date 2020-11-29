@@ -236,7 +236,7 @@
          },
          {
             "type": "checkbox",
-            "name": "attachCopyOExistingPOOrders",
+            "name": "attachCopyOfExistingPOOrders",
             "visibleIf": "{existingPOOrders} = 'y'",
             "title":" ",
             "description": "You need to attach a copy of the order(s) to your application.",

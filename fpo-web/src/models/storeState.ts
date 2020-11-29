@@ -40,6 +40,8 @@ export interface ApplicationState {
   // might be useful?
   lastPrinted: Date;
 
+  dateFiled: Date;
+
   userType: string;
 
   userName: string;

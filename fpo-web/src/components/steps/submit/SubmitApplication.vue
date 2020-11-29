@@ -6,6 +6,12 @@
         <div class="col-md-12">
           <h1>Submit Your Application Forms</h1>
           <p>You can submit your application through our online service or in person</p>
+
+          <b-card v-if="displaySupportingDocumentsReminder" class="bg-info text-dark p-2">
+            <p class="text-center font-weight-bold">You are required to include the following documents with your submission:</p>
+            <li v-for="reqDocType in requiredsupportingDocumentsList" :key="reqDocType">{{reqDocType}}</li>
+          </b-card>
+
           <b-card border-variant="light" bg-variant="white" class="mt-3 mb-3">
             <h2>In Person</h2>
             <p>
@@ -48,7 +54,7 @@
                 <b-form-group label="Document Type:" label-for="documentType"> 
                   <b-form-select
                     id="documentType"
-                    v-model="fileType"
+                    v-model="fileType"                    
                     size="sm"
                     :state = "selectedDocumentTypeState?null:false">
                     <b-form-select-option v-for="docType in fileTypes" :value="docType.value" :key="docType.value">{{docType.text}}</b-form-select-option>  
@@ -125,6 +131,7 @@ import { Step } from "@/models/step";
 import PageBase from "../PageBase.vue";
 import axios from "axios";
 import moment from 'moment-timezone';
+import * as _ from 'underscore';
 import { Page } from "survey-vue";
 
 export default {
@@ -137,6 +144,9 @@ export default {
       supportingFile: null,
       selectedDocumentTypeState: true,
       selectedSupportingDocumentState: true,
+      displaySupportingDocumentsReminder: false,
+      downloading: false,
+      submitting: false,
       fileType: "",
       fileTypes: [],
       supportingDocumentFields: [
@@ -144,12 +154,45 @@ export default {
           { key: 'fileType', label: 'File Type'},
           { key: 'edit', thClass: 'd-none'}
       ],
-      supportingDocuments: [],     
+      supportingDocuments: [],
+      requiredsupportingDocumentsList: [], 
+      pdfForm: null     
     };
   },
   mounted() {
     const documentTypesJson = require("@/assets/documentTypes.json");
-    this.fileTypes = documentTypesJson;
+    this.fileTypes = _.sortBy(documentTypesJson, 'text');
+
+    const application = this.$store.getters["application/getApplication"];
+    this.requiredsupportingDocumentsList = [];
+    console.log(application.steps[2])
+
+    if (application.steps[2].result.backgroundSurvey){
+      if ( application.steps[2].result.backgroundSurvey.existingPOOrders == 'y') { 
+        this.requiredsupportingDocumentsList.push('Existing Protection Order')
+      }
+      if (application.steps[2].result.backgroundSurvey.ExistingOrders == 'y') {
+        this.requiredsupportingDocumentsList.push('Existing court orders protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders.');
+      }
+    }
+
+    if (application.steps[2].result.aboutPOSurvey) {
+      console.log('about PO')
+      if (application.steps[2].result.aboutPOSurvey.changePOattachment[0] == "confirmed") {
+        this.requiredsupportingDocumentsList.push('Existing Protection Order to be changed.')
+      }
+      if (application.steps[2].result.aboutPOSurvey.terminatePOattachment[0] == "confirmed") {
+        this.requiredsupportingDocumentsList.push('Existing Protection Order to be terminated.')
+      }
+
+    }   
+    
+    if (this.requiredsupportingDocumentsList.length > 0) {
+      this.displaySupportingDocumentsReminder = true;
+    } else {
+      this.displaySupportingDocumentsReminder = false;
+    }
+    console.log(this.requiredsupportingDocumentsList)
   },
   components: {
     PageBase
@@ -166,12 +209,19 @@ export default {
     },    
     onDownload: function() {
       console.log("downloading")
+      this.downloading = true;
+      this.submitting = false;
       const currentDate = moment().format();
       this.$store.dispatch("application/setLastUpdated", currentDate); 
       this.$store.dispatch("application/setLastPrinted", currentDate); 
       const application = this.$store.getters["application/getApplication"];
       
       const applicationId = application.id;
+
+      this.saveApplication(applicationId, application);
+      
+    },
+    saveApplication: function(applicationId, application) {
 
       this.$http.put(
       "/app/"+ applicationId + "/",
@@ -192,9 +242,8 @@ export default {
         console.error(err);
         this.error = err;
       });
-        
-      
     },
+
     loadPdf: function() {
       const applicationId = this.$store.getters["application/getApplicationId"];
       const requiresNewPdf = true;
@@ -210,14 +259,25 @@ export default {
           }
         )
         .then(res => {
+          console.log(res)
           const blob = res.data;
-          const link = document.createElement("a");
-          link.href = URL.createObjectURL(blob);
-          document.body.appendChild(link);
-          link.download = "fpo.pdf";
-          link.click();
-          setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-          this.error = "";
+          if (this.downloading) {
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = "fpo.pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            this.error = "";
+          }
+
+          if (this.submitting) {
+            console.log('submitting')
+            //TODO: get the blob as a pdf file and add to the list of documents to submit
+            this.pdfForm = blob;
+            this.eFile();
+          }
+          
         })
         .catch(err => {
           console.error(err);
@@ -226,11 +286,21 @@ export default {
 
     },
     onSubmit: function() {
-      //TODO: get the pdf through new API, save application with latest information
+      console.log("submitting")
+      this.downloading = false;
+      this.submitting = true;
+      const currentDate = moment().format();
+      this.$store.dispatch("application/setLastUpdated", currentDate); 
+      this.$store.dispatch("application/setDateFiled", currentDate); 
+      const application = this.$store.getters["application/getApplication"];      
+      const applicationId = application.id;      
+      this.saveApplication(applicationId, application);
+    },
 
+    eFile: function() {
 
       var bodyFormData = new FormData();
-      bodyFormData.append('files', "~/Downloads/fpo.pdf");
+      bodyFormData.append('files', this.pdfForm);
       //TODO: add the new api to call submit documents
       this.$http
         .post(
@@ -257,7 +327,10 @@ export default {
           console.error(err);
           this.error = "Sorry, we were unable to submit your form at this time, please try again later.";        
         });
+
+
     },
+
     generateUrl: function() {
       
       this.generateUrlPayload = this.getGenerateUrlPayload();

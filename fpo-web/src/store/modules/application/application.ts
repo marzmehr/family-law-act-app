@@ -11,6 +11,7 @@ export const state: ApplicationState = {
   steps: new Array<Step>(),
   lastUpdate: null,
   lastPrinted: null,
+  dateFiled: null,
   currentStep: 1,
   allCompleted: false,
   userType: "",

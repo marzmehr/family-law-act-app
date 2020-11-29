@@ -78,6 +78,10 @@ export const actions: ActionTree<ApplicationState, RootState> = {
     context.commit("setLastPrinted", lastPrinted);
   },
 
+  setDateFiled(context, dateFiled) {
+    context.commit("setDateFiled", dateFiled);
+  },
+
   updateStepResultData(context, { step, data }) {
     context.commit("updateStepResultData", { step, data });
   }
