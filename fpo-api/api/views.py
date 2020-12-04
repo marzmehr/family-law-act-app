@@ -209,7 +209,8 @@ class ApplicationView(APIView):
                 "applicantName": application.applicant_name,
                 "respondentName": application.respondent_name,
                 "protectedPartyName": application.protected_party_name,
-                "protectedChildName": application.protected_child_name}
+                "protectedChildName": application.protected_child_name,
+                "applicationLocation": application.application_location}
         return Response(data)
 
     def post(self, request: Request):
@@ -237,6 +238,7 @@ class ApplicationView(APIView):
             respondent_name=body.get("respondentName"),
             protected_party_name=body.get("protectedPartyName"),
             protected_child_name=body.get("protectedChildName"),
+            application_location=body.get("applicationLocation"),
             user_id=uid)
 
         db_app.save()
@@ -244,27 +246,29 @@ class ApplicationView(APIView):
 
     def put(self, request, pk, format=None):
         uid = request.user.id
-        body = request.data
-        if not body:
-            return HttpResponseBadRequest("Missing request body")
+        application_queryset = Application.objects.filter(user_id=uid).filter(pk=pk)
+        if application_queryset:
+            body = request.data
+            
+            if not body:
+                return HttpResponseBadRequest("Missing request body")
 
-        application_queryset = get_app_queryset(pk, uid)
-        if not application_queryset:
-            return HttpResponseNotFound("No record found")
-
-        (steps_key_id, steps_enc) = self.encrypt_steps(body["steps"])
-
-        application_queryset.update(last_updated=timezone.now())
-        application_queryset.update(app_type=body.get("type"))
-        application_queryset.update(current_step=body.get("currentStep"))
-        application_queryset.update(steps=steps_enc)
-        application_queryset.update(user_type=body.get("userType"))
-        application_queryset.update(applicant_name=body.get("applicantName"))
-        application_queryset.update(user_name=body.get("userName"))
-        application_queryset.update(respondent_name=body.get("respondentName"))
-        application_queryset.update(protected_party_name=body.get("protectedPartyName"))
-        application_queryset.update(protected_child_name=body.get("protectedChildName"))
-        return Response("success")             
+            (steps_key_id, steps_enc) = self.encrypt_steps(body["steps"])
+    
+            application_queryset.update(last_updated=body.get("lastUpdate"))
+            application_queryset.update(last_printed=body.get("lastPrinted"))
+            application_queryset.update(app_type=body.get("type"))
+            application_queryset.update(current_step=body.get("currentStep"))
+            application_queryset.update(steps=steps_enc)
+            application_queryset.update(user_type=body.get("userType"))
+            application_queryset.update(applicant_name=body.get("applicantName"))
+            application_queryset.update(user_name=body.get("userName"))
+            application_queryset.update(respondent_name=body.get("respondentName"))
+            application_queryset.update(protected_party_name=body.get("protectedPartyName"))
+            application_queryset.update(protected_child_name=body.get("protectedChildName"))
+            application_queryset.update(application_location=body.get("applicationLocation"))
+            return Response("success")
+        return HttpResponseNotFound("No record found")
 
     def delete(self, request, pk, format=None):
         uid = request.user.id

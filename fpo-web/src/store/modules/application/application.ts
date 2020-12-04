@@ -20,7 +20,8 @@ export const state: ApplicationState = {
   applicantName: "",
   respondentName: "",
   protectedPartyName: "",
-  protectedChildName: ""
+  protectedChildName: "",
+  applicationLocation: "",
 };
 
 const namespaced = true;
