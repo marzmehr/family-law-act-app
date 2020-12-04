@@ -131,7 +131,7 @@ export default {
       this.setSteps(event);
     },
     setSteps(event) {
-      console.log("GETTING STARTED")
+      //console.log("GETTING STARTED")
       if (event !== undefined) {
         this.toggleCommonSteps(event.includes("protectionOrder"));
         this.toggleSteps(2, event.includes("protectionOrder"));

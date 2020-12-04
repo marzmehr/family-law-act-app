@@ -165,9 +165,12 @@ export default {
 
     const application = this.$store.getters["application/getApplication"];
     this.requiredsupportingDocumentsList = [];
-    console.log(application.steps[2])
+    let orderType = 'default';
+    if (application.steps[0].result.selectedForms.includes("protectionOrder")) {
+      orderType = application.steps[0].result.selectedPOOrder.orderType;
+    }    
 
-    if (application.steps[2].result.backgroundSurvey){
+    if (orderType == "needPO" && application.steps[2].result.backgroundSurvey){
       if ( application.steps[2].result.backgroundSurvey.existingPOOrders == 'y') { 
         this.requiredsupportingDocumentsList.push('Existing Protection Order')
       }
@@ -177,11 +180,10 @@ export default {
     }
 
     if (application.steps[2].result.aboutPOSurvey) {
-      console.log('about PO')
-      if (application.steps[2].result.aboutPOSurvey.changePOattachment[0] == "confirmed") {
+      if (orderType == "changePO" && application.steps[2].result.aboutPOSurvey.changePOattachment[0] == "confirmed") {
         this.requiredsupportingDocumentsList.push('Existing Protection Order to be changed.')
       }
-      if (application.steps[2].result.aboutPOSurvey.terminatePOattachment[0] == "confirmed") {
+      if (orderType == "terminatePO" && application.steps[2].result.aboutPOSurvey.terminatePOattachment[0] == "confirmed") {
         this.requiredsupportingDocumentsList.push('Existing Protection Order to be terminated.')
       }
 
@@ -192,7 +194,7 @@ export default {
     } else {
       this.displaySupportingDocumentsReminder = false;
     }
-    console.log(this.requiredsupportingDocumentsList)
+    
   },
   components: {
     PageBase
@@ -209,11 +211,11 @@ export default {
       var applicationLocation = {applicationLocation: this.$store.getters["application/getApplicationLocation"]}
       Object.assign(result, result, applicationLocation); 
       
-      console.log(result)
+      //console.log(result)
       return result;
     },    
     onDownload: function() {
-      console.log("downloading")
+      //console.log("downloading")
       this.downloading = true;
       this.submitting = false;
       const currentDate = moment().format();
@@ -228,6 +230,18 @@ export default {
     },
     saveApplication: function(applicationId, application) {
 
+      if (application.steps[0].result && application.steps[0].result.selectedForms && application.steps[0].result.selectedForms.includes("protectionOrder")) {
+        if (application.steps[0].result.selectedPOOrder && application.steps[0].result.selectedPOOrder.orderType) {
+          let applicationType = application.steps[0].result.selectedPOOrder.orderType;
+          if (applicationType == "needPO") this.$store.dispatch("application/setApplicationType", "New Protection Order");
+          else if (applicationType == "changePO") this.$store.dispatch("application/setApplicationType", "Change Protection Order");
+          else if (applicationType == "terminatePO") this.$store.dispatch("application/setApplicationType", "Terminate Protection Order");
+          else this.$store.dispatch("application/setApplicationType", "Protection Order");
+        }
+      } 
+
+      application = this.$store.getters["application/getApplication"]
+
       this.$http.put(
       "/app/"+ applicationId + "/",
       application,
@@ -239,7 +253,7 @@ export default {
         }
       )
       .then(res => {
-        console.log(res.data);  
+        //console.log(res.data);  
         this.loadPdf()
         this.error = "";
       })
@@ -264,7 +278,7 @@ export default {
           }
         )
         .then(res => {
-          console.log(res)
+          //console.log(res)
           const blob = res.data;
           if (this.downloading) {
             const link = document.createElement("a");
@@ -277,7 +291,7 @@ export default {
           }
 
           if (this.submitting) {
-            console.log('submitting')
+            //console.log('submitting')
             //TODO: get the blob as a pdf file and add to the list of documents to submit
             this.pdfForm = blob;
             this.eFile();
@@ -291,7 +305,7 @@ export default {
 
     },
     onSubmit: function() {
-      console.log("submitting")
+      //console.log("submitting")
       this.downloading = false;
       this.submitting = true;
       const currentDate = moment().format();
@@ -323,7 +337,7 @@ export default {
           }
         )
         .then(res => {
-          console.log(res)
+          //console.log(res)
           this.submissionId = res.submissionId;
           this.generateUrl();
 

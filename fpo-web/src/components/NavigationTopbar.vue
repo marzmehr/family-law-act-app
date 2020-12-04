@@ -82,7 +82,20 @@ export default {
       if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) { 
         const lastUpdated = moment().format();
         this.$store.dispatch("application/setLastUpdated", lastUpdated); 
-        const application = this.$store.getters["application/getApplication"]      
+        let application = this.$store.getters["application/getApplication"]
+      
+        if (application.steps[0].result && application.steps[0].result.selectedForms && application.steps[0].result.selectedForms.includes("protectionOrder")) {
+          if (application.steps[0].result.selectedPOOrder && application.steps[0].result.selectedPOOrder.orderType) {
+            let applicationType = application.steps[0].result.selectedPOOrder.orderType;
+            if (applicationType == "needPO") this.$store.dispatch("application/setApplicationType", "New Protection Order");
+            else if (applicationType == "changePO") this.$store.dispatch("application/setApplicationType", "Change Protection Order");
+            else if (applicationType == "terminatePO") this.$store.dispatch("application/setApplicationType", "Terminate Protection Order");
+            else this.$store.dispatch("application/setApplicationType", "Protection Order");
+          }
+        } 
+
+        application = this.$store.getters["application/getApplication"]
+        
         const applicationId = application.id;
 
         this.$http.put(
@@ -94,15 +107,15 @@ export default {
               "Content-Type": "application/json",
             }
           }
-        )
-        .then(res => {
-          console.log(res.data); 
-          this.error = "";      
-        })
-        .catch(err => {
-          console.error(err);
-          this.error = err;      
-        });
+          )
+          .then(res => {
+            //console.log(res.data); 
+            this.error = "";      
+          })
+          .catch(err => {
+            console.error(err);
+            this.error = err;      
+          });
       } 
        
       Vue.nextTick().then(() => { 

@@ -59,7 +59,7 @@ export default {
       if (this.$listeners && this.$listeners.onComplete) {  
         this.$emit('onComplete');
       } else {
-        console.log("PageBase.onComplete default action.");
+        //console.log("PageBase.onComplete default action.");
         this.$store.dispatch("application/setAllCompleted", true);
       }
     },
@@ -78,8 +78,20 @@ export default {
     saveChanges: function() {
       const lastUpdated = moment().format();
       this.$store.dispatch("application/setLastUpdated", lastUpdated); 
-      const application = this.$store.getters["application/getApplication"]
-      // console.log(application.steps[0].result.questionnaireSurvey.orderType)   
+      let application = this.$store.getters["application/getApplication"]
+      
+      if (application.steps[0].result && application.steps[0].result.selectedForms && application.steps[0].result.selectedForms.includes("protectionOrder")) {
+        if (application.steps[0].result.selectedPOOrder && application.steps[0].result.selectedPOOrder.orderType) {
+          let applicationType = application.steps[0].result.selectedPOOrder.orderType;
+          if (applicationType == "needPO") this.$store.dispatch("application/setApplicationType", "New Protection Order");
+          else if (applicationType == "changePO") this.$store.dispatch("application/setApplicationType", "Change Protection Order");
+          else if (applicationType == "terminatePO") this.$store.dispatch("application/setApplicationType", "Terminate Protection Order");
+          else this.$store.dispatch("application/setApplicationType", "Protection Order");
+        }
+      } 
+
+      application = this.$store.getters["application/getApplication"]
+
       const applicationId = application.id;
       this.$http.put(
         "/app/"+ applicationId + "/",
@@ -92,7 +104,7 @@ export default {
         }
       )
       .then(res => {
-        console.log(res.data);
+        //console.log(res.data);
         this.error = "";
       })
       .catch(err => {

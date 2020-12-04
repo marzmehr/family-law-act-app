@@ -153,7 +153,7 @@ export default {
           app.app_type = appJson.app_type;
           this.previousApplications.push(app);
         }
-        console.log(this.previousApplications)       
+        //console.log(this.previousApplications)       
       }).catch((err) => {
         //TODO: determine workflow
         console.log(err)
@@ -175,7 +175,7 @@ export default {
 
       const application = store.getters["application/getApplication"];
       
-      console.log(application)
+      //console.log(application)
       this.$http.post(
         "/app/",
         application,
@@ -208,7 +208,7 @@ export default {
       .then((response) => {
         const applicationData = response.data
 
-        console.log(applicationData)
+        //console.log(applicationData)
         
         this.currentApplication.id = applicationId;
         this.currentApplication.allCompleted = applicationData.allCompleted;
@@ -241,7 +241,7 @@ export default {
       this.deleteErrorMsg = '';
       this.deleteErrorMsgDesc = '';
       this.deleteError = false;
-      console.log(application)
+      //console.log(application)
       this.applicationToDelete = application;
       this.indexToDelete = index;
       this.determineIsDeletionAllowed();         
@@ -257,7 +257,7 @@ export default {
     confirmRemoveApplication() {
       this.$http.delete('/app/'+ this.applicationToDelete.id + '/')
       .then((response) => {
-        console.log(response.data)
+        //console.log(response.data)
         
         var indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete.id)return true});
         if(indexToDelete>=0)this.previousApplications.splice(indexToDelete, 1);  
