@@ -23,6 +23,9 @@ Vue.use(VueRouter);
 Vue.use(VueCookies);
 Vue.use(http)
 
+console.warn("process.env")
+console.log(process.env)
+
 const router = new VueRouter({
     routes: routes, 
     mode: "history", 

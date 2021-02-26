@@ -77,6 +77,21 @@
                 <b-button variant="outline-dark" class="closeButton" @click="showGetHelpForPDF=false">&times;</b-button>
             </template>
         </b-modal>
+
+        <b-modal size="xl" v-model="showPDFpreview" header-class="bg-white">
+            <template v-slot:modal-title>
+                <h1 class="mb-0 text-primary">Preview the PDF form</h1> 
+            </template>
+            <print-preview/>        
+            <template v-slot:modal-footer>
+                <b-button variant="primary" @click="showPDFpreview=false">Close</b-button>
+                <b-button variant="success" @click="onPrint();showPDFpreview=false">Save</b-button>
+            </template>            
+            <template v-slot:modal-header-close>                 
+                <b-button variant="outline-dark" class="closeButton" @click="showPDFpreview=false">&times;</b-button>
+            </template>
+        </b-modal>
+
     </page-base>
 </template>
 
@@ -89,6 +104,8 @@ import PageBase from "../PageBase.vue";
 import moment from 'moment-timezone';
 import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
 
+import PrintPreview from "./pdf/PrintPreview.vue"
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -96,7 +113,8 @@ const applicationState = namespace("Application");
 @Component({
     components:{
         PageBase,
-        GetHelpForPdf
+        GetHelpForPdf,
+        PrintPreview
     }
 })
 
@@ -119,6 +137,7 @@ export default class ReviewAndPrint extends Vue {
     currentPage=0;
 
     showGetHelpForPDF = false;
+    showPDFpreview = false;
     applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
     requiredDocuments: string[] = [];
 
@@ -154,6 +173,47 @@ export default class ReviewAndPrint extends Vue {
     }
 
     public onDownload() {
+
+        // console.log("print") 
+        // const el= document.getElementById("print");
+
+        // console.log(el.innerHTML)
+        // const applicationId = this.$store.state.Application.id;
+
+        // const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
+        // const body = ['<!DOCTYPE html>\
+        //                 <html lang="en">\
+        //                 <head>\
+        //                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">\
+        //                 <meta charset="UTF-8">\
+        //                 <title>Application About a Protection Order</title>\
+        //                 </head>\
+        //                 <body>'+el.innerHTML+
+        //                 '</body>\n</html>']
+                        
+        // const options = {
+        //     responseType: "blob",
+        //     headers: {
+        //     "Content-Type": "application/json",
+        //     }
+        // }  
+        // console.log(body)
+        // this.$http.post(url,body, options)
+        // .then(res => {
+        //     const blob = res.data;
+        //     const link = document.createElement("a");
+        //     link.href = URL.createObjectURL(blob);
+        //     document.body.appendChild(link);
+        //     link.download = "fpo.pdf";
+        //     link.click();
+        //     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        //     this.error = "";
+        //     Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
+        // },err => {
+        //     console.error(err);
+        //     this.error = "Sorry, we were unable to print your form at this time, please try again later.";
+        // });
+
 
         if(this.checkErrorOnPages()){
             const currentDate = moment().format();
@@ -205,16 +265,62 @@ export default class ReviewAndPrint extends Vue {
     }
 
     public loadPdf() {
+        //this.$router.push("printpreview")
+        this.showPDFpreview = true
+        // const applicationId = this.$store.state.Application.id;
+        // const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
+        // const body = this.getFPOResultData()
+        // const options = {
+        //     responseType: "blob",
+        //     headers: {
+        //     "Content-Type": "application/json",
+        //     }
+        // }
+        // //console.log(body)
+        // this.$http.post(url,body, options)
+        // .then(res => {
+        //     const blob = res.data;
+        //     const link = document.createElement("a");
+        //     link.href = URL.createObjectURL(blob);
+        //     document.body.appendChild(link);
+        //     link.download = "fpo.pdf";
+        //     link.click();
+        //     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        //     this.error = "";
+        //     Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
+        // },err => {
+        //     console.error(err);
+        //     this.error = "Sorry, we were unable to print your form at this time, please try again later.";
+        // });
+
+    }
+
+    public onPrint() {
+
+        console.log("print") 
+        const el= document.getElementById("print");
+
+        console.log(el)
         const applicationId = this.$store.state.Application.id;
+
         const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
-        const body = this.getFPOResultData()
+        const body = ['<!DOCTYPE html>\
+                        <html lang="en">\
+                        <head>\
+                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">\
+                        <meta charset="UTF-8">\
+                        <title>Application About a Protection Order</title>\
+                        </head>\
+                        <body>'+el.innerHTML+
+                        '</body>\n</html>']
+                        
         const options = {
             responseType: "blob",
             headers: {
             "Content-Type": "application/json",
             }
-        }
-        //console.log(body)
+        }  
+        console.log(body)
         this.$http.post(url,body, options)
         .then(res => {
             const blob = res.data;
@@ -224,13 +330,11 @@ export default class ReviewAndPrint extends Vue {
             link.download = "fpo.pdf";
             link.click();
             setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-            this.error = "";
-            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
+            
         },err => {
             console.error(err);
-            this.error = "Sorry, we were unable to print your form at this time, please try again later.";
+        
         });
-
     }
 
     public getFPOResultData() {  

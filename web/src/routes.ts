@@ -8,6 +8,8 @@ import { SessionManager } from "@/components/utils/utils";
 import VueResource from 'vue-resource'
 import store from "@/store"
 
+import PrintPreview from "@/components/steps/submit/pdf/PrintPreview.vue"
+
 
 async function authGuard(to: any, from: any, next: any) {
   var result = await SessionManager.getUserInfo(store);
@@ -53,6 +55,11 @@ const routes = [
     path: "/terms",
     name: "terms",
     component: TermsConditions
+  },
+  {
+    path: "/printpreview",
+    name: "printpreview",
+    component: PrintPreview
   }
 ];
 
