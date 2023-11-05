@@ -334,6 +334,19 @@ export interface stepInfoType {
 
     //_____Step 21 ELECTRONIC FILING STATEMENT_____________    
     electronicFilingStatementSurvey?: electronicFilingStatementSurveyInfoType;
+
+    //_____Step 22 GUARDIANSHIP AFFIDAVIT_____________    
+    guardianshipAffidavitSurvey?: any;//affidavitSurveyInfoType;   
+    aboutAffiantGaSurvey?: any;//affidavitSurveyInfoType; 
+    childrenDetailsGaSurvey?: any;//affidavitSurveyInfoType; 
+    caringForChildGaSurvey?: any;//affidavitSurveyInfoType; 
+    backgroundFamilyViolence?: any;//affidavitSurveyInfoType;
+    backgroundCivilCourtProceedings?: any;//affidavitSurveyInfoType;
+    backgroundCriminalHistory?: any;//affidavitSurveyInfoType;
+    exhibits?: any;//affidavitSurveyInfoType;
+    filingGA?: any;//affidavitSurveyInfoType;
+    electronicFilingStatementGa?: any;//affidavitSurveyInfoType;
+    
     
     //__Step 22 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;

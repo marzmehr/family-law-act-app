@@ -30,6 +30,7 @@ export interface stepsAndPagesNumberInfoType{
     NLPR: NLPRstPgTypes;
     AFF: AFFstPgTypes;
     EFSP: EFSPstPgTypes;
+    GA: GAstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -393,6 +394,23 @@ export interface EFSPstPgTypes{
     ElectronicFilingStatement: number;    
     ReviewYourAnswersEFSP: number;
     PreviewFormsEFSP: number;
+}
+
+export interface GAstPgTypes{
+    _StepNo: number;
+
+    GuardianshipAffidavit: number;
+    AboutAffiantGa: number;
+    ChildrenDetailsGa: number;
+    CaringForChildGa: number;
+    BackgroundFamilyViolence: number;
+    BackgroundCivilCourtProceedings: number;
+    BackgroundCriminalHistory: number;
+    Exhibits: number;
+    FilingGA: number;
+    ElectronicFilingStatementGa: number;
+    ReviewYourAnswersGA: number;
+    PreviewFormsGA: number;
 }
 
 export interface SUBMITstPgTypes{

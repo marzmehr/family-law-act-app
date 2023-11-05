@@ -770,6 +770,7 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepNLPR = store.state.Application.stPgNo.NLPR;
         const stepAFF = store.state.Application.stPgNo.AFF;
         const stepEFSP = store.state.Application.stPgNo.EFSP;
+        const stepGA = store.state.Application.stPgNo.GA;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -851,6 +852,10 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepEFSP._StepNo; 
 			reviewPage = stepEFSP.ReviewYourAnswersEFSP; 
 			previewPages = [stepEFSP.PreviewFormsEFSP];
+		} else if(typeName == 'guardianshipAffidavit'){
+			step = stepGA._StepNo; 
+			reviewPage = stepGA.ReviewYourAnswersGA; 
+			previewPages = [stepGA.PreviewFormsGA];
 		}
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
