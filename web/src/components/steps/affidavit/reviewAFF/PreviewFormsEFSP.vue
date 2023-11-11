@@ -39,8 +39,26 @@ export default class PreviewFormsEfsp extends Vue {
         this.disableNext = true;        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);       
-        if(this.checkErrorOnPages([this.stPgNo.OTHER._StepNo, this.stPgNo.EFSP._StepNo])) this.dataReady = true;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
+        
+        const affPageNumber = this.stPgNo.AFF.PreviewFormsAFF;
+        
+        let nonCompleteForm = false;
+        let nonCompleteFormPage = 0;
+        
+        const pageForm = this.$store.state.Application.steps[this.stPgNo.AFF._StepNo].pages[affPageNumber]
+        if(pageForm.active && pageForm.progress !=100){
+            nonCompleteForm = true;
+            nonCompleteFormPage = affPageNumber            
+        }
+
+        if(nonCompleteForm){
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.AFF._StepNo, currentPage: nonCompleteFormPage});
+        }
+        else if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.AFF._StepNo])) 
+            this.dataReady = true;
+        
+        if(this.checkErrorOnPages([this.stPgNo.OTHER._StepNo, this.stPgNo.AFF._StepNo])) this.dataReady = true;
         window.scrollTo(0, 0);
     }   
 
@@ -59,7 +77,7 @@ export default class PreviewFormsEfsp extends Vue {
 
     public checkErrorOnPages(steps){
 
-        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms", "File"]
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Form 45","Preview Form 51", "File"]
         for(const stepIndex of steps){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){
