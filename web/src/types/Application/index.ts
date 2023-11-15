@@ -335,16 +335,16 @@ export interface stepInfoType {
     
 
     //_____Step 21 GUARDIANSHIP AFFIDAVIT_____________    
-    guardianshipAffidavitSurvey?: any;//affidavitSurveyInfoType;   
-    aboutAffiantGaSurvey?: any;//affidavitSurveyInfoType; 
-    childrenDetailsGaSurvey?: any;//affidavitSurveyInfoType; 
-    caringForChildGaSurvey?: any;//affidavitSurveyInfoType; 
-    backgroundFamilyViolence?: any;//affidavitSurveyInfoType;
-    backgroundCivilCourtProceedings?: any;//affidavitSurveyInfoType;
-    backgroundCriminalHistory?: any;//affidavitSurveyInfoType;
-    exhibits?: any;//affidavitSurveyInfoType;
-    filingGA?: any;//affidavitSurveyInfoType;
-    electronicFilingStatementGa?: any;//affidavitSurveyInfoType;
+    guardianshipAffidavitSurvey?: any;//guardianshipAffidavitSurveyInfoType;   
+    aboutAffiantGaSurvey?: any;//aboutAffiantGaSurveyInfoType; 
+    childrenDetailsGaSurvey?: any;//childrenDetailsGaSurveyInfoType; 
+    caringForChildGaSurvey?: any;//caringForChildGaSurveyInfoType; 
+    backgroundFamilyViolenceSurvey?: any;//backgroundFamilyViolenceSurveyInfoType;
+    backgroundCivilCourtProceedingsSurvey?: any;//backgroundCivilCourtProceedingsSurveyInfoType;
+    backgroundCriminalHistorySurvey?: any;//backgroundCriminalHistorySurveyInfoType;
+    exhibitsSurvey?: any;//exhibitsSurveyInfoType;
+    filingGASurvey?: any;//filingGASurveyInfoType;
+    electronicFilingStatementGaSurvey?: any;//electronicFilingStatementGaSurveyInfoType;
     
     
     //__Step 22 SUBMIT
