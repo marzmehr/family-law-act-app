@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.18";
+    const CURRENT_VERSION = "1.2.19";
     //__________________________
     //___________________________
     //___________________________
@@ -626,15 +626,16 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		if(stepCM.pages[stPgCM.RecognizingAnOrderFromOutsideBc].active && questions.recognizingAnOrderFromOutsideBcSurvey?.outsideBcOrder == 'y')
 			requiredDocuments.push("Certified copy of the order from outside BC")
 
-        if(stepCM.pages[stPgCM.WithoutNoticeOrAttendance].active){
+        if(questions.cmQuestionnaireSurvey?.includes("section12")){
 
-            if(questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'n'){
-                requiredDocuments.push("Affidavit - General Form 45")
-            } else if (questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'y' 
-                        && stepCM.pages[stPgCM.ApplicationUnderFOAEAA].active
-                        && questions.applicationUnderFOAEAASurvey?.criminalRecordCheckAcknowledgement.includes('I understand')){
+            if (stepCM.pages[stPgCM.WithoutNoticeOrAttendance].active
+                && questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'y' 
+                && stepCM.pages[stPgCM.ApplicationUnderFOAEAA].active
+                && questions.applicationUnderFOAEAASurvey?.criminalRecordCheckAcknowledgement.includes('I understand')){
                 requiredDocuments.push("Affidavit - General Form 45")
                 requiredDocuments.push("Criminal Record Check")
+            } else {
+                requiredDocuments.push("Affidavit - General Form 45");
             }
         }
 	}
