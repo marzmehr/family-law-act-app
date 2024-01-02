@@ -361,7 +361,7 @@ export interface stepInfoType {
     filingGaSurvey?: filingGaSurveyInfoType;
     electronicFilingStatementGaSurvey?: electronicFilingStatementGaSurveyInfoType;
     
-    //__Step 21 SUBMIT
+    //__Step 22 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
