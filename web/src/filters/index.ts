@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.17.1";
+    const CURRENT_VERSION = "1.2.19";
     //__________________________
     //___________________________
     //___________________________
@@ -625,6 +625,19 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		
 		if(stepCM.pages[stPgCM.RecognizingAnOrderFromOutsideBc].active && questions.recognizingAnOrderFromOutsideBcSurvey?.outsideBcOrder == 'y')
 			requiredDocuments.push("Certified copy of the order from outside BC")
+
+        if(questions.cmQuestionnaireSurvey?.includes("section12")){
+
+            if (stepCM.pages[stPgCM.WithoutNoticeOrAttendance].active
+                && questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'y' 
+                && stepCM.pages[stPgCM.ApplicationUnderFOAEAA].active
+                && questions.applicationUnderFOAEAASurvey?.criminalRecordCheckAcknowledgement.includes('I understand')){
+                requiredDocuments.push("Affidavit - General Form 45")
+                requiredDocuments.push("Criminal Record Check")
+            } else {
+                requiredDocuments.push("Affidavit - General Form 45");
+            }
+        }
 	}
 
 	if(type == 'agreementEnfrc'){
@@ -769,7 +782,6 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepNLP = store.state.Application.stPgNo.NLP;	
         const stepNLPR = store.state.Application.stPgNo.NLPR;
         const stepAFF = store.state.Application.stPgNo.AFF;
-        const stepEFSP = store.state.Application.stPgNo.EFSP;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -846,11 +858,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		} else if(typeName == 'affidavit'){
 			step = stepAFF._StepNo; 
 			reviewPage = stepAFF.ReviewYourAnswersAFF; 
-			previewPages = [stepAFF.PreviewFormsAFF];
-		} else if(typeName == 'electronicFilingStatement'){
-			step = stepEFSP._StepNo; 
-			reviewPage = stepEFSP.ReviewYourAnswersEFSP; 
-			previewPages = [stepEFSP.PreviewFormsEFSP];
+			previewPages = [stepAFF.PreviewFormsAFF, stepAFF.PreviewFormsEFSP];
 		}
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
@@ -873,7 +881,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'electronicFilingStatement']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit']
 	
 	if(type == 'allExPO'){
         
@@ -897,7 +905,6 @@ Vue.filter('surveyChanged', function(type: string) {
         pathwayCompleted.noticeLawyerParty = false;	
         pathwayCompleted.noticeRemoveLawyerParty = false;
         pathwayCompleted.affidavit = false;
-        pathwayCompleted.electronicFilingStatement = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")

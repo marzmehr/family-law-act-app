@@ -164,7 +164,7 @@ import UnderlineForm from "@/components/utils/PopulateForms/components/Underline
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { electronicFilingStatementDataInfoType } from '@/types/Application/ElectronicFilingStatement';
+import { electronicFilingStatementDataInfoType } from '@/types/Application/Affidavit';
 
 @Component({
     components:{
@@ -213,11 +213,11 @@ export default class Form51Layout extends Vue {
         this.otherParties = '';
         this.applicant = '';
 
-        if(this.result?.electronicFilingStatementSurvey){
+        if(this.result?.electronicFilingStatementAffSurvey){
 
             let electronicFilingStatement = {} as electronicFilingStatementDataInfoType;
 
-            electronicFilingStatement = this.result.electronicFilingStatementSurvey; 
+            electronicFilingStatement = this.result.electronicFilingStatementAffSurvey; 
             
             this.isLawyer = electronicFilingStatement.Lawyer == 'y';
 
@@ -243,12 +243,12 @@ export default class Form51Layout extends Vue {
     }
 
     public getDocumentInfo(){       
-        //TODO: update once we know how to handle multiple efs docs
+        
         this.documents = '';        
 
-        if(this.result?.efsDocuments?.length>0){
-            const documentName = this.result.efsDocuments[0].documentName;
-            const applicant = Vue.filter('getFullName')(this.result.efsDocuments[0].efsApplicantName);
+        if(this.result?.affEfsDocuments?.length>0){
+            const documentName = this.result.affEfsDocuments[0].documentName;
+            const applicant = Vue.filter('getFullName')(this.result.affEfsDocuments[0].efsApplicantName);
             this.documents = documentName + ' of ' + applicant;
         }        
     

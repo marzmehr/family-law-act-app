@@ -13,7 +13,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/electronic-filing-statement.json";
+import surveyJson from "./forms/electronic-filing-statement-aff.json";
 import PageBase from "../PageBase.vue";
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -24,7 +24,7 @@ import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
         PageBase
     }
 })
-export default class ElectronicFilingStatement extends Vue {
+export default class ElectronicFilingStatementAff extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -81,8 +81,8 @@ export default class ElectronicFilingStatement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.electronicFilingStatementSurvey) {            
-            this.survey.data = this.step.result.electronicFilingStatementSurvey.data;   
+        if (this.step.result?.electronicFilingStatementAffSurvey) {            
+            this.survey.data = this.step.result.electronicFilingStatementAffSurvey.data;   
                      
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
@@ -155,7 +155,7 @@ export default class ElectronicFilingStatement extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {electronicFilingStatementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {electronicFilingStatementAffSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

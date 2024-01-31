@@ -79,7 +79,7 @@ export default class Form51 extends Vue {
     public getEFSPResultData() {         
         
         const result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.EFSP._StepNo]){
+        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.AFF._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResultInx in stepResults){
                 if(stepResults[stepResultInx])
