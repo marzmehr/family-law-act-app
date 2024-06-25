@@ -79,6 +79,9 @@ export default class ReviewYourAnswersPage extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
+    @applicationState.State
+    applicationLocation!: any
+
     fields =[
         {key:'title', label:'Question', thClass:'border-right', tdClass:'border-top border-right ', thStyle:''},
         {key:'value', label:'Response', thClass:'', tdClass:'border-top border-right', thStyle:''},
@@ -121,6 +124,7 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace(/{firstQuestionText}/g,'');
         adjQuestion = adjQuestion.replace(/{applicationIdentifier}/g,'application(s)');
         adjQuestion = adjQuestion.replace(/{verb}/g,'was/were');
+        adjQuestion = adjQuestion.replace(/{registryLocation}/g,this.applicationLocation);
         adjQuestion = adjQuestion.replace(/{applicationList}/g, getWrittenResponseApplications(this.$store.state.Application.types).join(' and '));
         adjQuestion = adjQuestion.replace(/{calculationDate}/g,'the above mentioned date');
         adjQuestion = adjQuestion.replace(/{disagreeReasonQuestion}/g,'Why don’t you agree with the requested order?');
@@ -140,7 +144,10 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the party you are no longer representing? </b>", "What is the name of the party you are no longer representing?");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>I swear or affirm that I know or believe the following facts to be true. If these facts are based on information from others, I believe that information to be true.</b>", "I swear or affirm that I know or believe the following facts to be true. If these facts are based on information from others, I believe that information to be true.");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;'>What is the full name of the other party?</b>", "What is the full name of the other party?");
-        
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>Please set out the details requested below for each criminal offence you are currently charged with:</b>", "Please set out the details requested below for each criminal offence you are currently charged with:");
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>What document(s) did you serve?</b>", "What document(s) did you serve?");
+        adjQuestion = adjQuestion.replace("serviceContact", "Service Contact Information");    
+        adjQuestion = adjQuestion.replace("<div style = 'color: #494949; font-size: 1rem; font-weight: 400;'>Other Location", "Other service location/method");
         return adjQuestion
     }
 
@@ -168,8 +175,11 @@ export default class ReviewYourAnswersPage extends Vue {
             if(typeof value[0] === 'string' || value[0] instanceof String){
                 if(value[0].includes('Name:'))
                     return value.join(" \n ")
-                else
-                    return value.join(" \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');                
+                else {
+                    value = value.join(" \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+                    return value.replace(/`/g,'');
+                }
+                                    
             }
             if (dataItem.name == 'otherPartyInfoDis'){
                 return this.getOtherPartyInfo(value);
@@ -195,6 +205,14 @@ export default class ReviewYourAnswersPage extends Vue {
                 return this.getOtherPartyInfo(value);
             } else if (dataItem.name == 'PartyInfoEfsp'){
                 return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'currentCharges'){
+                return this.getChargesInfo(value);
+            } else if (dataItem.name == 'documentListAps'){
+                return this.getDocumentInfo(value);
+            } else if (dataItem.name == 'documentListApsp'){
+                return this.getDocumentInfo(value);
+            } else if (dataItem.name == 'documentListCsv'){
+                return this.getDocumentInfo(value);
             }
             else{
                 this.pageHasError = true;
@@ -304,6 +322,27 @@ export default class ReviewYourAnswersPage extends Vue {
             }
         }
         return result;
+    }
+
+    public getChargesInfo(chargesList){
+
+        let resultString = "";
+        for(const charge of chargesList ){            
+            resultString +=Vue.filter('styleTitle')("Charge Nature:")                    + charge['chargeNature']  +"\n";
+            resultString +=Vue.filter('styleTitle')("Charge Date:")              + Vue.filter('beautify-date')(charge['chargeDate']) +"\n";
+            resultString +=Vue.filter('styleTitle')("Charge Court Location:") + charge['chargeCourtLocation']                         +"\n\n";               
+        }
+        return resultString;
+    }
+
+    public getDocumentInfo(documentList){
+
+        let resultString = "";
+        for(const document of documentList ){            
+            resultString +=Vue.filter('styleTitle')("Exhibit Letter:")           + document['exhibitName']  +"\n";
+            resultString +=Vue.filter('styleTitle')("Document Name:") + document['fileName']  +"\n\n";               
+        }
+        return resultString;
     }
 
     public getAffidavitInfo(affidavitList){

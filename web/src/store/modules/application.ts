@@ -66,7 +66,11 @@ class Application extends VuexModule {
         noticeLawyerParty: false,
         noticeRemoveLawyerParty: false,
         affidavit: false,
-        electronicFilingStatement: false            
+        guardianshipAffidavit: false,
+        affidavitPersonalService: false,
+        affidavitPersonalServicePO: false,
+        certificateOfService: false,
+        financialStatement: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -371,6 +375,7 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Parenting Arrangements
         p = {} as pageInfoType;
         p.key = "4";
         p.name = "ReplyNewParentingArrangements";
@@ -411,6 +416,7 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Child Support
         p = {} as pageInfoType;
         p.key = "9";
         p.name = "ReplyNewChildSupport";
@@ -467,6 +473,7 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Contact with a Child
         p = {} as pageInfoType;
         p.key = "16";
         p.name = "ReplyNewContactWithChild";
@@ -491,6 +498,7 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Guardian of Child
         p = {} as pageInfoType;
         p.key = "19";
         p.name = "ReplyAppointingGuardianOfChild";
@@ -523,6 +531,7 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Spouse Support
         p = {} as pageInfoType;
         p.key = "23";
         p.name = "ReplyNewSpouseSupport";
@@ -587,8 +596,59 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Companion Animal
+
         p = {} as pageInfoType;
         p.key = "31";
+        p.name = "ReplyNewPropertyDivision";
+        p.label = "Reply New Property Division";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "32";
+        p.name = "AnimalRelationshipToOtherParty";
+        p.label = "Relationship to Other Party";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "33";
+        p.name = "DisagreePropertyDivision";
+        p.label = "Disagree Property Division";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "34";
+        p.name = "PropertyDivisionOrder";
+        p.label = "Property Division Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "35";
+        p.name = "ReplyExistingPropertyDivision";
+        p.label = "Reply Existing Property Division";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "36";
+        p.name = "DisagreeExistingPropertyDivisionOrder";
+        p.label = "Disagree Existing Property Division Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+//_____ RFLM Additional Documents
+        p = {} as pageInfoType;
+        p.key = "37";
         p.name = "RflmAdditionalDocuments";
         p.label = "Additional Documents";
         p.active = false;
@@ -596,16 +656,18 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "32";
+        p.key = "38";
         p.name = "YourApplication";
         p.label = "Your Application";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
-        //____________Parenting Arrangements_________
+//___________ COUNTER APPLICATIONS___________
+
+//____________Parenting Arrangements_________
         p = {} as pageInfoType;
-        p.key = "33";
+        p.key = "39";
         p.name = "ParentingArrangements";
         p.label = "Parenting Arrangements";
         p.active = false;
@@ -613,7 +675,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "34";
+        p.key = "40";
         p.name = "ParentalResponsibilities";
         p.label = "Parental Responsibilities";
         p.active = false;
@@ -621,7 +683,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "35";
+        p.key = "41";
         p.name = "ParentingTime";
         p.label = "Parenting Time";
         p.active = false;
@@ -629,7 +691,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "36";
+        p.key = "42";
         p.name = "OtherParentingArrangements";
         p.label = "Other Parenting Arrangements";
         p.active = false;
@@ -637,7 +699,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "37";
+        p.key = "43";
         p.name = "ParentingOrderAgreement";
         p.label = "Parenting Order/Agreement";
         p.active = false;
@@ -645,7 +707,7 @@ class Application extends VuexModule {
         s.pages.push(p);
         
         p = {} as pageInfoType;
-        p.key = "38";
+        p.key = "44";
         p.name = "AboutParentingArrangements";
         p.label = "About Parenting Arrangements";
         p.active = false;
@@ -653,7 +715,7 @@ class Application extends VuexModule {
         s.pages.push(p);
         
         p = {} as pageInfoType;
-        p.key = "39";
+        p.key = "45";
         p.name = "ParentingArrangementChanges";
         p.label = "Parenting Arrangement Changes";
         p.active = false;
@@ -661,7 +723,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "40";
+        p.key = "46";
         p.name = "BestInterestsOfChild";
         p.label = "Best Interests of the Child";
         p.active = false;
@@ -671,7 +733,7 @@ class Application extends VuexModule {
 
 //____________Child Support__________
         p = {} as pageInfoType;
-        p.key = "41";
+        p.key = "47";
         p.name = "ChildSupport";
         p.label = "Child Support";
         p.active = false;
@@ -679,7 +741,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "42";
+        p.key = "48";
         p.name = "ChildSupportCurrentArrangements";
         p.label = "Current Arrangements";
         p.active = false;
@@ -687,7 +749,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "43";
+        p.key = "49";
         p.name = "IncomeAndEarningPotential";
         p.label = "Income and Earning Potential";
         p.active = false;
@@ -695,7 +757,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "44";
+        p.key = "50";
         p.name = "AboutChildSupportOrder";
         p.label = "About the Order";
         p.active = false;
@@ -703,7 +765,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "45";
+        p.key = "51";
         p.name = "ChildSupportOrderAgreement";
         p.label = "Child Support Order/Agreement";
         p.active = false;
@@ -711,7 +773,7 @@ class Application extends VuexModule {
         s.pages.push(p);
         
         p = {} as pageInfoType;
-        p.key = "46";
+        p.key = "52";
         p.name = "AboutExistingChildSupport";
         p.label = "About Existing Child Support";
         p.active = false;
@@ -719,7 +781,7 @@ class Application extends VuexModule {
         s.pages.push(p);        
 
         p = {} as pageInfoType;
-        p.key = "47";
+        p.key = "53";
         p.name = "CalculatingChildSupport";
         p.label = "Calculating Child Support";
         p.active = false;
@@ -727,7 +789,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "48";
+        p.key = "54";
         p.name = "UndueHardship";
         p.label = "Undue Hardship";
         p.active = false;
@@ -735,7 +797,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "49";
+        p.key = "55";
         p.name = "SpecialAndExtraordinaryExpenses";
         p.label = "Special and Extraordinary Expenses";
         p.active = false;
@@ -743,7 +805,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "50";
+        p.key = "56";
         p.name = "AboutChildSupportChanges";
         p.label = "About Child Support Changes";
         p.active = false;
@@ -751,7 +813,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "51";
+        p.key = "57";
         p.name = "UnpaidChildSupport";
         p.label = "Unpaid Child Support";
         p.active = false;
@@ -760,7 +822,7 @@ class Application extends VuexModule {
 
 //____________Contact with a Child
         p = {} as pageInfoType;
-        p.key = "52";
+        p.key = "58";
         p.name = "ContactWithChild";
         p.label = "Contact with a Child";
         p.active = false;
@@ -768,7 +830,7 @@ class Application extends VuexModule {
         s.pages.push(p);        
 
         p = {} as pageInfoType;
-        p.key = "53";
+        p.key = "59";
         p.name = "ContactWithChildOrder";
         p.label = "Contact Order/Agreement";
         p.active = false;
@@ -776,7 +838,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "54";
+        p.key = "60";
         p.name = "AboutContactWithChildOrder";
         p.label = "About the Order";
         p.active = false;
@@ -784,7 +846,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "55";
+        p.key = "61";
         p.name = "ContactWithChildBestInterestsOfChild";
         p.label = "Best Interests of the Child";
         p.active = false;
@@ -793,7 +855,7 @@ class Application extends VuexModule {
 
 //____________Guardianship of a Child
         p = {} as pageInfoType;
-        p.key = "56";
+        p.key = "62";
         p.name = "GuardianOfChild";
         p.label = "Guardianship of a Child";
         p.active = false;
@@ -801,7 +863,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "57";
+        p.key = "63";
         p.name = "GuardianOfChildBestInterestsOfChild";
         p.label = "Best Interests of the Child";
         p.active = false;
@@ -809,7 +871,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "58";
+        p.key = "64";
         p.name = "IndigenousAncestryOfChild";
         p.label = "Indigenous Ancestry of Child";
         p.active = false;
@@ -818,7 +880,7 @@ class Application extends VuexModule {
 
 //____________Spousal Support
         p = {} as pageInfoType;
-        p.key = "59";
+        p.key = "65";
         p.name = "SpousalSupport";
         p.label = "Spousal Support";
         p.active = false;
@@ -826,7 +888,7 @@ class Application extends VuexModule {
         s.pages.push(p);  
         
         p = {} as pageInfoType;
-        p.key = "60";
+        p.key = "66";
         p.name = "SpousalSupportIncomeAndEarningPotential";
         p.label = "Income and Earning Potential";
         p.active = false;
@@ -834,7 +896,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "61";
+        p.key = "67";
         p.name = "AboutSpousalSupportOrder";
         p.label = "About the Order";
         p.active = false;
@@ -842,7 +904,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "62";
+        p.key = "68";
         p.name = "ExistingSpousalSupportOrderAgreement";
         p.label = "Spousal Support Order/Agreement";
         p.active = false;
@@ -850,7 +912,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "63";
+        p.key = "69";
         p.name = "ExistingSpousalSupportFinalOrder";
         p.label = "Existing Final Order";
         p.active = false;
@@ -858,7 +920,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "64";
+        p.key = "70";
         p.name = "ExistingSpousalSupportAgreement";
         p.label = "Existing Written Agreement";
         p.active = false;
@@ -866,7 +928,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "65";
+        p.key = "71";
         p.name = "CalculatingSpousalSupport";
         p.label = "Calculating Spousal Support";
         p.active = false;
@@ -874,7 +936,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "66";
+        p.key = "72";
         p.name = "AboutExistingSpousalSupportOrder";
         p.label = "About the Order";
         p.active = false;
@@ -882,16 +944,41 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "67";
+        p.key = "73";
         p.name = "UnpaidSpousalSupport";
         p.label = "Unpaid Spousal Support";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
+//______ Companion Animal
+        p = {} as pageInfoType;
+        p.key = "74";
+        p.name = "PropertyDivisionCompanionAnimal";
+        p.label = "Companion Animal";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "75";
+        p.name = "CompanionAnimalFacts";
+        p.label = "Companion Animal Facts";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "76";
+        p.name = "CompanionAnimalExistingAgreement";
+        p.label = "Companion Animal Existing Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
 //______ Additional Documents
         p = {} as pageInfoType;
-        p.key = "68";
+        p.key = "77";
         p.name = "FlmAdditionalDocuments";
         p.label = "Additional Documents";
         p.active = false;
@@ -899,7 +986,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "69";
+        p.key = "78";
         p.name = "ReviewYourAnswersRFLM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -907,7 +994,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "70";
+        p.key = "79";
         p.name = "PreviewFormsRFLM";
         p.label = "Preview Forms";
         p.active = false;
@@ -1325,9 +1412,34 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
-//______ Additional Documents
+//______ Companion Animal
         p = {} as pageInfoType;
         p.key = "38";
+        p.name = "PropertyDivisionCompanionAnimal";
+        p.label = "Companion Animal";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "39";
+        p.name = "CompanionAnimalFacts";
+        p.label = "Companion Animal Facts";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "40";
+        p.name = "CompanionAnimalExistingAgreement";
+        p.label = "Companion Animal Existing Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+//______ Additional Documents
+        p = {} as pageInfoType;
+        p.key = "41";
         p.name = "FlmAdditionalDocuments";
         p.label = "Additional Documents";
         p.active = true;
@@ -1336,7 +1448,7 @@ class Application extends VuexModule {
 
 //____________Review
         p = {} as pageInfoType;
-        p.key = "39";
+        p.key = "42";
         p.name = "ReviewYourAnswersFLM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -1344,7 +1456,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "40";
+        p.key = "43";
         p.name = "PreviewFormsFLM";
         p.label = "Preview Forms";
         p.active = false;
@@ -1432,6 +1544,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "8";
+        p.name = "ApplicationUnderFOAEAA";
+        p.label = "Application Under FOAEAA";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
         p.name = "AttendanceUsingElectronicCommunication";
         p.label = "Attendance Using Another Method of Attendance";
         p.active = false;
@@ -1439,7 +1559,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "9";
+        p.key = "10";
         p.name = "ChangingOrCancellingAServiceOrNotice";
         p.label = "Changing or Cancelling a Service or Notice";
         p.active = false;
@@ -1447,7 +1567,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "10";
+        p.key = "11";
         p.name = "ChangingOrCancellingAnyOtherRequirement";
         p.label = "Changing or Cancelling Any Other Requirement";
         p.active = false;
@@ -1455,7 +1575,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "11";
+        p.key = "12";
         p.name = "RequiringAccessToInformation";
         p.label = "Requiring Access to Information";
         p.active = false;
@@ -1463,7 +1583,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "12";
+        p.key = "13";
         p.name = "RecognizingAnOrderFromOutsideBc";
         p.label = "Recognizing an Order from Outside BC";
         p.active = false;
@@ -1471,7 +1591,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "13";
+        p.key = "14";
         p.name = "ContactInformationOtherParty";
         p.label = "Contact Information Other Party";
         p.active = false;
@@ -1480,7 +1600,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "14";
+        p.key = "15";
         p.name = "ReviewYourAnswersCM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -1488,7 +1608,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "15";
+        p.key = "16";
         p.name = "PreviewForm10CM";
         p.label = "Preview Form 10";
         p.active = false;
@@ -1496,7 +1616,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "16";
+        p.key = "17";
         p.name = "PreviewForm11CM";
         p.label = "Preview Form 11";
         p.active = false;
@@ -2385,9 +2505,17 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
-        //____________Review
         p = {} as pageInfoType;
         p.key = "4";
+        p.name = "ElectronicFilingStatementAFF";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "5";
         p.name = "ReviewYourAnswersAFF";
         p.label = "Review Your Answers";
         p.active = true;
@@ -2395,64 +2523,625 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "6";
         p.name = "PreviewFormsAFF";
-        p.label = "Preview Forms";
+        p.label = "Preview Form 45";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "PreviewFormsEFSP";
+        p.label = "Preview Form 51";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         this.steps.push(s);
 
-        // Affidavit STOP
+        // Affidavit STOP     
 
-        // Electronic Filing Statement START
+
+        // Guardianship Affidavit START
 
         s = {} as stepInfoType;    
         s.active = false;
         s.id = "23";
-        s.name = "EFSP";
-        s.label = "Electronic Filing Statement";
-        s.icon = "fa fa-file";
+        s.name = "GA";
+        s.label = "Guardianship Affidavit";
+        s.icon = "fas fa-file-contract";
         s.lastUpdate = null;
-        s.type = "electronicFilingStatement";
+        s.type = "guardianshipAffidavit";
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;        
 
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "ElectronicFilingStatement";
-        p.label = "Electronic Filing Statement";
+        p.name = "GuardianshipAffidavit";
+        p.label = "Guardianship Affidavit";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);        
 
-        //____________Review
         p = {} as pageInfoType;
         p.key = "1";
-        p.name = "ReviewYourAnswersEFSP";
+        p.name = "AboutAffiantGa";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);  
+        
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "ChildrenDetailsGa";
+        p.label = "Children Details";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "CaringForChildGa";
+        p.label = "Caring for the child";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";        
+        p.name = "BackgroundFamilyViolence";
+        p.label = "Background Family Violence";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";        
+        p.name = "BackgroundCivilCourtProceedings";
+        p.label = "Background Civil Court Proceedings";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";        
+        p.name = "BackgroundCriminalHistory";
+        p.label = "Background Criminal History";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";        
+        p.name = "Exhibits";
+        p.label = "Exhibits";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "8";        
+        p.name = "FilingGA";
+        p.label = "Filing an Affidavit";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.name = "ElectronicFilingStatementGA";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "ReviewYourAnswersGA";
         p.label = "Review Your Answers";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "2";
-        p.name = "PreviewFormsEFSP";
-        p.label = "Preview Forms";
+        p.key = "11";
+        p.name = "PreviewFormsGA";
+        p.label = "Preview Form 5";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.name = "PreviewFormsGaEFSP";
+        p.label = "Preview Form 51";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         this.steps.push(s);
 
-        // Electronic Filing Statement STOP
+        // Guardianship Affidavit STOP  
+
+        // Affidavit of Personal service START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "24";
+        s.name = "APS";
+        s.label = "Affidavit of Personal service";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "affidavitPersonalService";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "AffidavitPersonalService";
+        p.label = "Affidavit of Personal service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiantAps";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "AboutServiceAPS";
+        p.label = "About the Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);       
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ElectronicFilingStatementAPS";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersAPS";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewFormsAPS";
+        p.label = "Preview Form 48";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsApsEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Affidavit of Personal service STOP 
+
+        // Affidavit of Personal service PO START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "25";
+        s.name = "APSP";
+        s.label = "Affidavit of Personal Service of Protection Order";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "affidavitPersonalServicePO";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "AffidavitPersonalServicePO";
+        p.label = "Affidavit of Personal Service of Protection Order";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiantApsp";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "AboutServiceAPSP";
+        p.label = "About Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);       
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ElectronicFilingStatementAPSP";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersAPSP";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewFormsAPSP";
+        p.label = "Preview Form 49";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsApspEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Affidavit of Personal service PO STOP 
+
+        // Certificate of Service START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "26";
+        s.name = "CSV";
+        s.label = "Certificate of Service";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "certificateOfService";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "CertificateOfService";
+        p.label = "Certificate of Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiantCsv";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "AboutServiceCSV";
+        p.label = "About Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ElectronicFilingStatementCSV";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersCSV";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewFormsCSV";
+        p.label = "Preview Form 7";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsCsvEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Certificate of Service STOP 
+
+        // Financial Statement START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "27";
+        s.name = "FS";
+        s.label = "Financial Statement";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "financialStatement";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "FinancialStatement";
+        p.label = "Financial Statement";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);     
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "IncomeInformation";
+        p.label = "Income Information";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);  
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "ChangesIncomeFS";
+        p.label = "Changes to income";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);  
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "IncomeSummaryFS";
+        p.label = "Income Summary";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);  
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "DisclosureInformationFS";
+        p.label = "Disclosure of Information";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);  
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "ExpensesFS";
+        p.label = "Expenses";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+        
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "DebtsFS";
+        p.label = "Debts";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "AssetsFS";
+        p.label = "Assets";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.name = "RealEstateFS";
+        p.label = "Real Estate";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.name = "CarsBoatsVehiclesFS";
+        p.label = "Cars, boats or vehicles";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "CashAssetsFS";
+        p.label = "Cash assets";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.name = "InvestmentsFS";
+        p.label = "Investments";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.name = "LoansCreditsFS";
+        p.label = "Loans and credits";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "13";
+        p.name = "OtherAssetsFS";
+        p.label = "Other Assets";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "14";
+        p.name = "DispositionAssetsFS";
+        p.label = "Disposition of Assets";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "15";
+        p.name = "IncomeOtherPersonHouseholdFS";
+        p.label = "Income of Other Persons in Household";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "16";
+        p.name = "ContributionTowardExpensesFS";
+        p.label = "Contribution toward expenses";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "17";
+        p.name = "UndueHardshipFS";
+        p.label = "Undue Hardship";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "18";
+        p.name = "UnusuallyHighExpensesFS";
+        p.label = "Unusually high expenses";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "19";
+        p.name = "LegalDutyDependentChildFS";
+        p.label = "Legal duty – dependent child";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "20";
+        p.name = "LegalDutyAnotherPersonFS";
+        p.label = "Legal duty – another person";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "21";
+        p.name = "OtherCircumstancesFS";
+        p.label = "Other circumstances";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "22";
+        p.name = "AffidavitFS";
+        p.label = "Affidavit";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "23";
+        p.name = "AboutAffiantFs";
+        p.label = "About Affiant";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+       
+        p = {} as pageInfoType;
+        p.key = "24";        
+        p.name = "FilingFS";
+        p.label = "Filing an Affidavit";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "25";
+        p.name = "ElectronicFilingStatementFS";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "26";
+        p.name = "ReviewYourAnswersFS";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "27";
+        p.name = "PreviewFormsFS";
+        p.label = "Preview Form 4";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "28";
+        p.name = "PreviewFormsFsEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Financial Statement STOP 
 
 
         //Submit START
         s = {} as stepInfoType;
         s.active = false;        
-        s.id = "24";
+        s.id = "28";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -2968,7 +3657,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, EFSP: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, GA: {}, APS: {}, APSP: {}, CSV: {}, FS:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
          const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

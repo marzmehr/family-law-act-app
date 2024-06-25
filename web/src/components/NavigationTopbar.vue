@@ -269,7 +269,7 @@
                 <p>
                     The Provincial Court of BC website provides information and resources including 
                     the 
-                    <a href="https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf"
+                    <a href="https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Court%20Orders%20-%20January%202022.docx"
                         target="_blank">Family Law Picklist</a>, 
                     <a href="https://www.provincialcourt.bc.ca/types-of-cases/family-matters"
                         target="_blank">Resources for Family Cases
@@ -468,8 +468,8 @@ export default class NavigationTopbar extends Vue {
     }
 
     public viewStatus() {
-
-        this.$router.push({ name: "applicant-status" });
+        if(this.$route.name != "applicant-status")
+            this.$router.push({ name: "applicant-status" });
     }
 }
 </script>

@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.17.1";
+    const CURRENT_VERSION = "1.2.26.1";
     //__________________________
     //___________________________
     //___________________________
@@ -88,10 +88,43 @@ Vue.filter('convert-time24to12', function(time) {
     }  
 })
 
+Vue.filter('convert-date-time24to12', function(date) {
+    const time = date.substr(11);
+    const time12 = (Number(time.substr(0,2)) % 12 || 12 ) + time.substr(2,3)
+    
+    if (Number(time.substr(0,2))<12) {
+      return time12 +' AM'
+    } else {
+      return time12 +' PM'
+    }  
+})
+
 Vue.filter('beautify-date-blank', function(date){
 	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
 	if(date)
 		return MonthList[Number(date.substr(5,2))] + ' ' +date.substr(8,2) + ' ' +  date.substr(0,4);
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-day', function(date){
+	if(date)
+		return date.substr(8,2);
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-full-month', function(date){
+	enum MonthList {'January' = 1, 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+	if(date)
+		return MonthList[Number(date.substr(5,2))];
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-short-year', function(date){
+	if(date)
+		return (date.substr(0,4)).substr(-1,2);
 	else
 		return ' '
 })
@@ -102,6 +135,72 @@ Vue.filter('beautify-date-weekday', function(date){
 	else
 		return ''
 })
+
+Vue.filter('getAlphabetBasedOnIndex', function(index){
+	enum AlphabetList {'A' = 1, 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}
+	if(index)
+		return AlphabetList[Number(index)];
+	else
+		return '';
+})
+
+Vue.filter('beautify-amount-name', function(amountName){
+
+    if(amountName?.length>0){
+
+        return (amountName.charAt(0).toUpperCase() + amountName.slice(1)).replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+
+    }
+	else
+		return '';
+})
+
+Vue.filter('getFsRequiredParts', function(fsData){
+
+    const situationTypes = fsData.situationType?fsData.situationType:[];
+    const part1Options = [
+        "I am the person required to pay child support", 
+        "Parenting time is `split or shared` for one or more of the children", 
+        "There is a claim for section 7 special or extraordinary expenses",
+        "There is a child 19 years or older for whom support is being applied for",
+        "A party has been acting as a parent to a child of the other party",
+        "The payor earns more than $150,000 per year",
+        "I am claiming undue hardship",
+        "The other party is claiming undue hardship"
+    ];
+    const part2and3Options = [            
+        "Parenting time is `split or shared` for one or more of the children", 
+        "There is a claim for section 7 special or extraordinary expenses",
+        "There is a child 19 years or older for whom support is being applied for",
+        "A party has been acting as a parent to a child of the other party",
+        "The payor earns more than $150,000 per year",
+        "I am claiming undue hardship",
+        "The other party is claiming undue hardship"
+    ];
+
+    const part4Options = [
+        "I am claiming undue hardship",
+        "The other party is claiming undue hardship"
+    ];
+
+    const part5Options = [
+        "I am claiming undue hardship"
+    ];
+
+    const part1Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists == 'y' && part1Options.some(s=>situationTypes.indexOf(s) > -1));
+    const part2and3Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists == 'y' && part2and3Options.some(s=>situationTypes.indexOf(s) > -1));
+    const part4Required = fsData.childAppExists == 'y' && part4Options.some(s=>situationTypes.indexOf(s) > -1);
+    const part5Required = fsData.childAppExists == 'y' && part5Options.some(s=>situationTypes.indexOf(s) > -1);
+
+    return {
+        part1Required: part1Required,
+        part2and3Required: part2and3Required,
+        part4Required: part4Required,
+        part5Required: part5Required
+    }
+
+})
+
 
 Vue.filter('scrollToLocation', function(locationName){
 	if(locationName){
@@ -554,6 +653,11 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 					requiredDocuments.push("Spousal Support calculation");
 				}
 			
+		const companionAnimalRequirement = (questions.companionAnimalExistingAgreementSurvey?.agreementDate)
+
+		if( (!RFLM && questions.flmQuestionnaireSurvey?.includes("companionAnimal") && companionAnimalRequirement) || 
+			(RFLM && counterList.includes("companionAnimal") && companionAnimalRequirement))
+				requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 
 		if(Vue.filter('FLMform5Required')(RFLM)){		
 			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
@@ -625,7 +729,21 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		
 		if(stepCM.pages[stPgCM.RecognizingAnOrderFromOutsideBc].active && questions.recognizingAnOrderFromOutsideBcSurvey?.outsideBcOrder == 'y')
 			requiredDocuments.push("Certified copy of the order from outside BC")
-	}
+	
+        if(questions.cmQuestionnaireSurvey?.includes("section12")){
+
+            if (stepCM.pages[stPgCM.WithoutNoticeOrAttendance].active
+                && questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'y' 
+                && stepCM.pages[stPgCM.ApplicationUnderFOAEAA].active
+                && questions.applicationUnderFOAEAASurvey?.criminalRecordCheckAcknowledgement.includes('I understand')){
+                requiredDocuments.push("Affidavit - General Form 45")
+                requiredDocuments.push("Criminal Record Check")
+            } else {
+                requiredDocuments.push("Affidavit - General Form 45");
+            }
+        }
+    
+    }
 
 	if(type == 'agreementEnfrc'){
 		const stPgENFRC = store.state.Application.stPgNo.ENFRC
@@ -769,7 +887,11 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepNLP = store.state.Application.stPgNo.NLP;	
         const stepNLPR = store.state.Application.stPgNo.NLPR;
         const stepAFF = store.state.Application.stPgNo.AFF;
-        const stepEFSP = store.state.Application.stPgNo.EFSP;
+        const stepGA = store.state.Application.stPgNo.GA;
+        const stepAPS = store.state.Application.stPgNo.APS;
+        const stepAPSP = store.state.Application.stPgNo.APSP;
+        const stepCSV = store.state.Application.stPgNo.CSV;
+        const stepFS = store.state.Application.stPgNo.FS
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -846,13 +968,29 @@ Vue.filter('surveyChanged', function(type: string) {
 		} else if(typeName == 'affidavit'){
 			step = stepAFF._StepNo; 
 			reviewPage = stepAFF.ReviewYourAnswersAFF; 
-			previewPages = [stepAFF.PreviewFormsAFF];
-		} else if(typeName == 'electronicFilingStatement'){
-			step = stepEFSP._StepNo; 
-			reviewPage = stepEFSP.ReviewYourAnswersEFSP; 
-			previewPages = [stepEFSP.PreviewFormsEFSP];
+			previewPages = [stepAFF.PreviewFormsAFF, stepAFF.PreviewFormsEFSP];
+		} else if(typeName == 'guardianshipAffidavit'){
+			step = stepGA._StepNo; 
+			reviewPage = stepGA.ReviewYourAnswersGA; 
+			previewPages = [stepGA.PreviewFormsGA, stepGA.PreviewFormsGaEFSP];
+		} else if(typeName == 'affidavitPersonalService'){
+			step = stepAPS._StepNo; 
+			reviewPage = stepAPS.ReviewYourAnswersAPS; 
+			previewPages = [stepAPS.PreviewFormsAPS, stepAPS.PreviewFormsApsEFSP];
+		} else if(typeName == 'affidavitPersonalServicePO'){
+			step = stepAPSP._StepNo; 
+			reviewPage = stepAPSP.ReviewYourAnswersAPSP; 
+			previewPages = [stepAPSP.PreviewFormsAPSP, stepAPSP.PreviewFormsApspEFSP];
+		} else if(typeName == 'certificateOfService'){
+			step = stepCSV._StepNo; 
+			reviewPage = stepCSV.ReviewYourAnswersCSV; 
+			previewPages = [stepCSV.PreviewFormsCSV, stepCSV.PreviewFormsCsvEFSP];
+		} else if(typeName == 'financialStatement'){
+			step = stepFS._StepNo; 
+			reviewPage = stepFS.ReviewYourAnswersFS; 
+			previewPages = [stepFS.PreviewFormsFS, stepFS.PreviewFormsFsEFSP];
 		}
-
+ 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
 	}
 
@@ -873,7 +1011,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'electronicFilingStatement']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService', 'affidavitPersonalServicePO', 'certificateOfService', 'financialStatement']
 	
 	if(type == 'allExPO'){
         
@@ -897,7 +1035,8 @@ Vue.filter('surveyChanged', function(type: string) {
         pathwayCompleted.noticeLawyerParty = false;	
         pathwayCompleted.noticeRemoveLawyerParty = false;
         pathwayCompleted.affidavit = false;
-        pathwayCompleted.electronicFilingStatement = false;
+        pathwayCompleted.guardianshipAffidavit = false;
+        pathwayCompleted.affidavitPersonalService = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")
@@ -1025,11 +1164,19 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight, margin?){
 			`.form-header-cm{display:block; margin:0 0 7rem 0;}`+
 			`.form-header-cmo{display:block; margin:0 0 6rem 0;}`+
 			`.form-header-reloc{display:block; margin:0 0 6.25rem 0;}`+
+            `.form-header-aps{display:block; margin:0 0 1rem 0;}`+
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
 			`.form-header-ea{display:block; margin:0 0 6rem 0;}`+
 			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+
 			`.form-header-cs{display:block; margin:-2rem 0 4rem 0;}`+
 			`.court-header-after{margin:-1rem 0 0 0;}`+
+            `.list-brackets{
+                    ol { counter-reset: item }
+                    li { display: block ; counter-increment: item; }
+                    li:before {
+                        content: " (" counter(item,lower-alpha) ") ";
+                    }
+            }`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+

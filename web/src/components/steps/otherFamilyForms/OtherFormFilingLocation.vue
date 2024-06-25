@@ -180,7 +180,42 @@ export default class OtherFormFilingLocation extends Vue {
     public eFilingAffidavit(){
 
         const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
-        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("affidavit")                
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("affidavit");                
+
+    }
+
+    public eFilingGuardianshipAffidavit(){
+
+        const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("guardianshipAffidavit");                
+
+    }
+
+    public eFilingAffidavitPersonalService(){
+
+        const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("affidavitPersonalService");                
+
+    }
+
+    public eFilingAffidavitPersonalServicePO(){
+
+        const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("affidavitPersonalServicePO");                
+
+    }
+
+    public eFilingCertificateOfService(){
+
+        const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("certificateOfService");                
+
+    }
+
+    public eFilingFinancialStatement(){
+
+        const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("financialStatement");                
 
     }
 
@@ -204,9 +239,17 @@ export default class OtherFormFilingLocation extends Vue {
         toggleStep(this.stPgNo.NLP._StepNo, this.requiredGuidedPathways.includes("noticeLawyerParty"));
         toggleStep(this.stPgNo.NLPR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerParty"));
         toggleStep(this.stPgNo.AFF._StepNo, this.requiredGuidedPathways.includes("affidavit"));
-        togglePages([this.stPgNo.AFF.FilingAFF], this.eFilingAffidavit, this.stPgNo.AFF._StepNo);
-        toggleStep(this.stPgNo.EFSP._StepNo, this.requiredGuidedPathways.includes("electronicFilingStatement"));
-        
+        togglePages([this.stPgNo.AFF.FilingAFF], this.eFilingAffidavit(), this.stPgNo.AFF._StepNo);
+        toggleStep(this.stPgNo.GA._StepNo, this.requiredGuidedPathways.includes("guardianshipAffidavit"));
+        togglePages([this.stPgNo.GA.FilingGA], this.eFilingGuardianshipAffidavit(), this.stPgNo.GA._StepNo);
+        toggleStep(this.stPgNo.APS._StepNo, this.requiredGuidedPathways.includes("affidavitPersonalService"));
+        togglePages([this.stPgNo.APS.ElectronicFilingStatementAPS], this.eFilingAffidavitPersonalService(), this.stPgNo.APS._StepNo);
+        toggleStep(this.stPgNo.APSP._StepNo, this.requiredGuidedPathways.includes("affidavitPersonalServicePO"));
+        togglePages([this.stPgNo.APSP.ElectronicFilingStatementAPSP], this.eFilingAffidavitPersonalServicePO(), this.stPgNo.APSP._StepNo);
+        toggleStep(this.stPgNo.CSV._StepNo, this.requiredGuidedPathways.includes("certificateOfService"));
+        togglePages([this.stPgNo.CSV.ElectronicFilingStatementCSV], this.eFilingCertificateOfService(), this.stPgNo.CSV._StepNo);
+        toggleStep(this.stPgNo.FS._StepNo, this.requiredGuidedPathways.includes("financialStatement"));
+        // togglePages([this.stPgNo.FS.FilingFS], this.eFilingFinancialStatement(), this.stPgNo.FS._StepNo); depends on responses on the initial page        
     }   
 
     public saveApplicationLocation(location){       
@@ -218,11 +261,17 @@ export default class OtherFormFilingLocation extends Vue {
         const newExistingOrders = []; 
         
         if(this.step?.result?.completeOtherFormsSurvey?.data?.selectedFormInfoList?.length>0){
+            const completeOtherFormsData = this.step.result.completeOtherFormsSurvey.data;
             const fileNumber = this.survey.data?.ExistingFamilyCase == 'y'? this.survey.data.ExistingFileNumber: ''
-            for(const selectedform of this.step.result.completeOtherFormsSurvey.data.selectedFormInfoList){
+            for(const selectedform of completeOtherFormsData.selectedFormInfoList){
                 // if(!selectedform.pathwayExists || selectedform.manualState) continue
                 const pdfType = (Vue.filter('getPathwayPdfType')(selectedform.pathwayName))
                 newExistingOrders.push({type: pdfType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber, doNotIncludePdf: pdfType == 'NDT'});                     
+            }
+
+            if(completeOtherFormsData.requiresEFSP){
+                const pdfType = 'EFSP';
+                newExistingOrders.push({type: pdfType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber, doNotIncludePdf: true});
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});

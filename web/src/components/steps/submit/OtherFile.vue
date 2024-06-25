@@ -259,6 +259,7 @@
     import { stepInfoType } from "@/types/Application";
     import { FLA_Types } from '@/filters/applicationTypes';
     import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+    import { disclosureInformationFSDataInfoType } from '@/types/Application/FinancialStatement';
 
     @Component({
         components:{
@@ -349,7 +350,17 @@
         submitEnable = true;
         currentPage=0;
         affIsExemptGuidedPathway = false;
+        gaIsExemptGuidedPathway = false;
+        apsIsExemptGuidedPathway = false;
+        apspIsExemptGuidedPathway = false;
+        csvIsExemptGuidedPathway = false;
+        fsIsExemptGuidedPathway = false;
         requiresEfsp = false;
+        requiresGaEfsp = false;
+        requiresApsEfsp = false;
+        requiresApspEfsp = false;
+        requiresCsvEfsp = false;
+        requiresFsEfsp = false;
 
         mounted(){
 
@@ -497,7 +508,7 @@
             for(const form of existingOrdersInfo){
 
                 const pathwayInfo = selectedFormInfoList.filter(selectedForm => {if(Vue.filter('getPathwayPdfType')(selectedForm.pathwayName) == form.type) return form;})[0]
-                if (!pathwayInfo.pathwayState){
+                if (pathwayInfo && !pathwayInfo.pathwayState){
                     form.doNotIncludePdf = true;                   
                 }
                 updatedExistingOrders.push(form)
@@ -616,7 +627,17 @@
         public extractInfo(){
 
             this.affIsExemptGuidedPathway = false;
+            this.gaIsExemptGuidedPathway = false;
+            this.apsIsExemptGuidedPathway = false;
+            this.apspIsExemptGuidedPathway = false;
+            this.csvIsExemptGuidedPathway = false;
+            this.fsIsExemptGuidedPathway = false;
             this.requiresEfsp = false;
+            this.requiresGaEfsp = false;
+            this.requiresApsEfsp = false;
+            this.requiresApspEfsp = false;
+            this.requiresCsvEfsp = false;
+            this.requiresFsEfsp = false;
 
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
@@ -642,9 +663,10 @@
                         
                         if(this.rejectedPathway && !rejectedFormTypesList.includes(pdfType)) continue
                         
-                        this.requiredDocumentLists.push({description: name, type: pdfType});                       
+                        this.requiredDocumentLists.push({description: name, type: pdfType});
+                        this.determineEfspPdfRequired(selectedForm);                       
                     } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit – General"){   
-                        this.determineAffGuidedPathway();
+                        this.determineAffGuidedPathway(selectedForm);
                         
                         if(this.rejectedPathway && !rejectedFormTypesList.includes('AFF')) continue
                         
@@ -652,10 +674,69 @@
                             this.requiredDocumentLists.push({description: 'Affidavit – General', type: 'AFF'});    
                         
                         if (this.requiresEfsp){
-                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement', type: 'EFSP'});
-
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit – General', type: 'EFSP'});
                         }
-                    }                 
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Guardianship Affidavit"){   
+                        this.determineGaGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('GA')) continue
+                        
+                        if (this.gaIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Guardianship Affidavit', type: 'GA'});    
+                        
+                        if (this.requiresGaEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Guardianship Affidavit', type: 'EFSP'});
+                        }
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal service"){   
+                        this.determineApsGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('APS')) continue
+                        
+                        if (this.apsIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Affidavit of Personal service', type: 'APS'});    
+                        
+                        if (this.requiresApsEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal service', type: 'EFSP'});
+                        }
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal Service of Protection Order"){   
+                        this.determineApspGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('APSP')) continue
+                        
+                        if (this.apspIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Affidavit of Personal Service of Protection Order', type: 'APSP'});    
+                        
+                        if (this.requiresApspEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal Service of Protection Order', type: 'EFSP'});
+                        }
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Certificate of Service"){   
+                        this.determineCsvGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('CSV')) continue
+                        
+                        if (this.csvIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Certificate of Service', type: 'CSV'});    
+                        
+                        if (this.requiresCsvEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'EFSP'});
+                        }
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Financial Statement"){   
+                        this.determineFsGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('FS')) continue
+                         
+                        if (this.fsIsExemptGuidedPathway){
+                            this.requiredDocumentLists.push({description: 'Financial Statement', type: 'FS'}); 
+                            if(this.steps[this.stPgNo.FS._StepNo].result?.disclosureInformationFSSurvey?.data){
+                                const disclosureData = this.steps[this.stPgNo.FS._StepNo].result.disclosureInformationFSSurvey.data
+                                this.determineFsAttachments(disclosureData);
+                            }
+                        }                               
+                        
+                        if (this.requiresFsEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Financial Statement', type: 'EFSP'});
+                        }
+                    }                  
                 }
                 setTimeout(() => this.updateSubmittedPdf(),50)
             }           
@@ -699,8 +780,30 @@
             }
             return false;
         } 
+
+        public determineEfspPdfRequired(selectedForm){
+//TODO: add all pathways that require EFSP
+            if(this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data){
+                const completeOtherFormsData = this.steps[this.stPgNo.OTHER._StepNo].result.completeOtherFormsSurvey.data;
+                if(completeOtherFormsData.requiresEFSP){
+
+                    if(selectedForm.formName=="Guardianship Affidavit"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Guardianship Affidavit', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Affidavit – General"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit – General', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Affidavit of Personal service"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal service', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Affidavit of Personal Service of Protection Order"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal Service of Protection Order', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Certificate of Service"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'EFSP'});
+                    }
+                }
+            }            
+
+        }   
         
-        public determineAffGuidedPathway(){
+        public determineAffGuidedPathway(selectedForm){
 
             let requiresAff = false;
             let requiresEfsp = false;
@@ -709,24 +812,172 @@
             const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'AFF')})
             if (index >=0 && this.eFiling){
                 const affFilingInfo = this.$store.state.Application.steps[this.stPgNo.AFF._StepNo].result?.filingAffSurvey?.data;              
-                requiresAff = affFilingInfo?.sworn;
+                requiresAff = affFilingInfo?.sworn?true:false;
                 requiresEfsp = affFilingInfo?.sworn == 'y';
+            }  
+                   
+            if (selectedForm.pathwayExists){
+                this.affIsExemptGuidedPathway = requiresAff;
+                this.requiresEfsp = requiresEfsp;
             } 
-
-            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
-            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
-
-            for (const selectedForm of selectedFormInfoList){                
-                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Affidavit – General"){
-                    this.affIsExemptGuidedPathway = requiresAff;
-                    this.requiresEfsp = requiresEfsp;
-                } else {
-                    this.affIsExemptGuidedPathway = false;
-                    this.requiresEfsp = false;
-                }          
-            }
             
         }      
+
+        public determineGaGuidedPathway(selectedForm){
+
+            let requiresGa = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'GA')})
+            if (index >=0 && this.eFiling){
+                const gaFilingInfo = this.$store.state.Application.steps[this.stPgNo.GA._StepNo].result?.filingGaSurvey?.data;              
+                requiresGa = gaFilingInfo?.sworn?true:false;
+                requiresEfsp = gaFilingInfo?.sworn == 'y';
+            } 
+                   
+            if (selectedForm.pathwayExists){
+                this.gaIsExemptGuidedPathway = requiresGa;
+                this.requiresGaEfsp = requiresEfsp;
+            } 
+        } 
+
+        public determineApsGuidedPathway(selectedForm){
+            let requiresAps = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'APS')})
+            if (index >=0 && this.eFiling){                            
+                requiresAps = this.eFiling;
+                requiresEfsp = this.eFiling;
+            } 
+                
+            if (selectedForm.pathwayExists){
+                this.apsIsExemptGuidedPathway = requiresAps;
+                this.requiresApsEfsp = requiresEfsp;
+            } 
+        }
+
+        public determineApspGuidedPathway(selectedForm){
+
+            let requiresApsp = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'APSP')})
+            if (index >=0 && this.eFiling){                             
+                requiresApsp = this.eFiling;
+                requiresEfsp = this.eFiling;
+            } 
+                
+            if (selectedForm.pathwayExists){
+                this.apspIsExemptGuidedPathway = requiresApsp;
+                this.requiresApspEfsp = requiresEfsp;
+            } 
+        }
+
+        public determineCsvGuidedPathway(selectedForm){
+
+            let requiresCsv = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'CSV')})
+            
+            if (index >=0 && this.eFiling){                             
+                requiresCsv = this.eFiling;
+                requiresEfsp = this.eFiling;
+            } 
+                
+            if (selectedForm.pathwayExists){
+                this.csvIsExemptGuidedPathway = requiresCsv;
+                this.requiresCsvEfsp = requiresEfsp;
+            } 
+        }
+
+        public determineFsAttachments(disclosureData: disclosureInformationFSDataInfoType){
+
+            if(disclosureData.incomeAcknowledgement){
+
+                this.requiredDocumentLists.push(
+                    {
+                        description: 'Your personal income tax return and related schedules for each of the 3 most recent taxation years', 
+                        type: 'FS'
+                    });
+                this.requiredDocumentLists.push(
+                    {
+                        description: 'Every Notice of Assessment and Reassessment issued by Canada Revenue Agency for each of the 3 most recent taxation years', 
+                        type: 'FS'
+                    });
+            }
+
+            if (disclosureData.incomeProofAcknowledgement && this.steps[this.stPgNo.FS._StepNo].result?.incomeInformationSurvey?.data?.incomeAmounts) {
+                const incomeData = this.steps[this.stPgNo.FS._StepNo].result?.incomeInformationSurvey.data.incomeAmounts;
+                for(const incomeType of incomeData) {
+                    if(incomeType.income){
+                        const incomeName = incomeType.incomeName;
+                        let docName = '';
+                        if(incomeName == "employee")
+                            docName = "Your most recent pay stub or statement of earnings, or a letter from my employer stating my salary and/or wages";
+                        else if(incomeName == "EI")
+                            docName = "Your most recent employment insurance benefit statement and record of employment";
+                        else if(incomeName == "WCB")
+                            docName = "Your most recent worker’s compensation benefit statement";
+                        else if(incomeName == "investment")
+                            docName = "Your most recent interest and investment statement";
+                        else if(incomeName == "pension")
+                            docName = "Your most recent pension income statement";
+                        else if(incomeName == "govAssist")
+                            docName = "Your most recent government assistance statement";
+                        else if(incomeName == "selfEmployed")
+                            docName = "My self-employment income for the three most recent taxation years";
+                        else if(incomeName == "trust")
+                            docName = "Your trust settlement agreement and the trust’s three most recent financial statements";
+                        else if(incomeName == "partnership")
+                            docName = "Confirmation of my income and draw from, and capital in, a partnership, for the three most recent taxation years";                            
+                        else if(incomeName == "other")
+                            docName = "Proof of other income: "+ (disclosureData.otherIncomeProofDocs?disclosureData.otherIncomeProofDocs:'');
+
+                        this.requiredDocumentLists.push(
+                            {
+                                description: docName, 
+                                type: 'FS'
+                            });                        
+
+                    }                        
+                }
+
+                if(disclosureData.corporation == "Yes"){
+                    const corpDocDescription = "My corporate income for the three most recent taxation years";
+                    this.requiredDocumentLists.push(
+                            {
+                                description: corpDocDescription, 
+                                type: 'FS'
+                            });
+                }
+                         
+            }
+        }
+
+        public determineFsGuidedPathway(selectedForm){
+
+            let requiresFs = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'FS')})
+            if (index >=0 && this.eFiling){
+                const fsFilingInfo = this.$store.state.Application.steps[this.stPgNo.FS._StepNo].result?.filingFsSurvey?.data;              
+                requiresFs = fsFilingInfo?.sworn?true:false;
+                requiresEfsp = fsFilingInfo?.sworn == 'y';
+            } 
+                
+            if (selectedForm.pathwayExists){
+                this.fsIsExemptGuidedPathway = requiresFs;
+                this.requiresFsEfsp = requiresEfsp;
+            } 
+    }
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");

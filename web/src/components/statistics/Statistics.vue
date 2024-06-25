@@ -90,7 +90,7 @@ export default class Statistics extends Vue {
 
         const start = this.reportDateRange.startDate? this.reportDateRange.startDate?.slice(0,10) : null
         const end = this.reportDateRange.endDate? this.reportDateRange.endDate?.slice(0,10) : null
-        const url = '/statistics/?start_date='+start+
+        const url = '/statistics?start_date='+start+
                     '&end_date='+end+
                     '&tz='+moment().utcOffset();
         
@@ -103,8 +103,11 @@ export default class Statistics extends Vue {
             this.searching = false;
             
         },(err) => {
-            this.searching = false;
-            this.error = err.response.data           
+            this.searching = false;            
+            if(err.response.status==502)
+                this.error ="Openshift resource issues were encountered. Please select a shorter date range.";
+            else
+                this.error = err.response.data;
         });  
         
     }
@@ -122,7 +125,7 @@ export default class Statistics extends Vue {
         const bottomLeftText = `"Family Law Act Reports Printed on `+time+`";`;
         const bottomRightText = `" "`;        
         
-        const url = '/statistics/'+'/?name=statistics_report' 
+        const url = '/statistics?name=statistics_report' 
         const margin = '1.2in 0.7in 0.9in 0.7in'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText, margin );
 

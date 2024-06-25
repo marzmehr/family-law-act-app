@@ -28,9 +28,13 @@
             <lawyer-party-step v-if="getCurrentStepIndex() == 20" v-bind:step="getStep(20)"></lawyer-party-step>
             <remove-lawyer-party-step v-if="getCurrentStepIndex() == 21" v-bind:step="getStep(21)"></remove-lawyer-party-step>
             <affidavit-step v-if="getCurrentStepIndex() == 22" v-bind:step="getStep(22)"></affidavit-step>
-            <electronic-filing-statement-step v-if="getCurrentStepIndex() == 23" v-bind:step="getStep(23)"></electronic-filing-statement-step>
+            <guardianship-affidavit-step v-if="getCurrentStepIndex() == 23" v-bind:step="getStep(23)"></guardianship-affidavit-step>
+            <affidavit-personal-service-step v-if="getCurrentStepIndex() == 24" v-bind:step="getStep(24)"></affidavit-personal-service-step>
+            <affidavit-personal-service-po-step v-if="getCurrentStepIndex() == 25" v-bind:step="getStep(25)"></affidavit-personal-service-po-step>
+            <certificate-of-service-step v-if="getCurrentStepIndex() == 26" v-bind:step="getStep(26)"></certificate-of-service-step>
+            <financial-statement-step v-if="getCurrentStepIndex() == 27" v-bind:step="getStep(27)"></financial-statement-step>
 
-            <step-submit v-if="getCurrentStepIndex() == 24" v-bind:step="getStep(24)"></step-submit>    
+            <step-submit v-if="getCurrentStepIndex() == 28" v-bind:step="getStep(28)"></step-submit>    
         </main>
     </div>
 </template>
@@ -55,8 +59,12 @@ import OtherFormStep from "./steps/otherFamilyForms/OtherFormStep.vue";
 import AddressChangeStep from "./steps/addressChange/AddressChangeStep.vue";
 import DiscontinuanceStep from "./steps/discontinuance/DiscontinuanceStep.vue";
 import IntentionProceedStep from "./steps/intentionProceed/IntentionProceedStep.vue";
-import ElectronicFilingStatementStep from "./steps/electronicFilingStatement/ElectronicFilingStatementStep.vue";
 import AffidavitStep from "./steps/affidavit/AffidavitStep.vue";
+import GuardianshipAffidavitStep from "./steps/guardianshipAffidavit/GuardianshipAffidavitStep.vue";
+import AffidavitPersonalServiceStep from "./steps/affidavitPersonalService/AffidavitPersonalServiceStep.vue";
+import AffidavitPersonalServicePoStep from "./steps/affidavitPersonalServicePO/AffidavitPersonalServicePOStep.vue";
+import CertificateOfServiceStep from "./steps/certificateOfService/CertificateOfServiceStep.vue";
+import FinancialStatementStep from "./steps/financialStatement/FinancialStatementStep.vue";
 import RequestSchedulingStep from "./steps/requestScheduling/RequestSchedulingStep.vue";
 import RemoveLawyerPartyStep from "./steps/noticeRemoveLawyerParty/RemoveLawyerPartyStep.vue";
 import LawyerPartyStep from "./steps/noticeLawyerParty/LawyerPartyStep.vue";
@@ -94,7 +102,11 @@ import * as surveyEnv from "@/components/survey/survey-glossary";
         LawyerPartyStep,
         RemoveLawyerPartyStep,
         AffidavitStep,
-        ElectronicFilingStatementStep
+        GuardianshipAffidavitStep,
+        AffidavitPersonalServiceStep,
+        AffidavitPersonalServicePoStep,
+        CertificateOfServiceStep,
+        FinancialStatementStep
     }
 })
 
