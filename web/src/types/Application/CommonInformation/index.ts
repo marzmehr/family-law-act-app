@@ -43,6 +43,10 @@ export interface nameInfoType {
   last: string;
 }
 
+export interface fullNameInfoType {
+    name: string;
+}
+
 export interface contactInfoType {
   phone?: string;
   fax?: string;
@@ -74,6 +78,7 @@ export interface filingLocationDataInfoType extends aboutPOSurveydataInfoType {
   filingLocationReason?: string;
   ExistingFMEPCase?: string;
   ExistingFMEPNumber?: string;  
+  courtLocationVictoriaSurrey?: boolean;
   earlyResolutionRegistry?: boolean;
   familyJusticeRegistry?: boolean;
   familyEducationProgram?: boolean;

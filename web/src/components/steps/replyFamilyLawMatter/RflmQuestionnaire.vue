@@ -22,11 +22,11 @@
             </p>
             <h2>The other party has applied for an order about the following family law matter:</h2>
             <p>
-                Look at the other party’s application. On page 2, Question 7, they will have 
+                Look at the other party’s application. On page 3, Question 10, they will have 
                 selected each family law matter they applied for. They will also have completed 
                 an additional schedule with the details of the order.
             </p>
-            <p>Select each option that applies.</p>
+            <p>In reply to the other party’s application about a family law matter: Select only one option for each family law matter and complete the required schedule(s), as applicable. If you are making a counter application, select the appropriate answer to the question below to identify which schedule you must complete. </p>
         </div>     
 
 
@@ -41,24 +41,19 @@
                         <div><span class="checkbox-choices-header text-primary">Parenting Arrangements </span> including parental responsibilities and parenting time</div>
                         <b-form-checkbox 
                             class="mt-3"
-                            v-on:change="changeSelection('parentingArrangements', 'newParentingArrangements', $event)" 
-                            value="newParentingArrangements">
-                            <div class="checkbox-choices">Parenting Arrangements - new</div>
-                            <p>
-                                Schedule 1 of the application was completed by the other party. 
-                                They are asking for an order about parenting arrangements because 
-                                there wasn’t already one in place.
-                            </p>                    
+                            v-on:change="changeSelection('parentingArrangements', 'agreeParentingArrangements', $event)" 
+                            value="agreeParentingArrangements">
+                            <div class="checkbox-choices">I agree with the request of the other party</div>
                         </b-form-checkbox>
                         <b-form-checkbox 
-                            v-on:change="changeSelection('parentingArrangements', 'existingParentingArrangements', $event)" 
-                            value="existingParentingArrangements">
-                            <div class="checkbox-choices">Parenting Arrangements order/agreement – existing </div>
-                            <p>
-                                Schedule 2 of the application was completed by the other party. 
-                                They are asking for an order about a parenting order or agreement 
-                                that already exists.
-                            </p>                    
+                            v-on:change="changeSelection('parentingArrangements', 'disagreeParentingArrangements', $event)" 
+                            value="disagreeParentingArrangements">
+                            <div class="checkbox-choices">I disagree with the request of the other party. A different order about parenting arrangements should be made. 🠆 Complete Schedule 1</div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('parentingArrangements', 'counterParentingArrangements', $event)" 
+                            value="counterParentingArrangements">
+                            <div class="checkbox-choices">I am making a counter application for an order. No application about this family law matter was made by the other party. </div>
                         </b-form-checkbox>
                     </div>
                     
@@ -73,24 +68,19 @@
                         <div class="checkbox-choices-header text-primary">Child Support</div>
                         <b-form-checkbox 
                             class="mt-3"
-                            v-on:change="changeSelection('childSupport', 'newChildSupport', $event)" 
-                            value="newChildSupport">
-                            <div class="checkbox-choices">Child Support - new</div>
-                            <p>
-                                Schedule 3 of the application was completed by the other party. 
-                                They are asking for an order about child support because there 
-                                wasn’t already one in place.
-                            </p>                    
+                            v-on:change="changeSelection('childSupport', 'agreeChildSupport', $event)" 
+                            value="agreeChildSupport">
+                            <div class="checkbox-choices">I agree with the request of the other party </div>
                         </b-form-checkbox>
                         <b-form-checkbox 
-                            v-on:change="changeSelection('childSupport', 'existingChildSupport', $event)" 
-                            value="existingChildSupport">
-                            <div class="checkbox-choices">Child Support order/agreement – existing </div>
-                            <p>
-                                Schedule 4 of the application was completed by the other party. 
-                                They are asking for an order about a child support order or 
-                                agreement that already exists.
-                            </p>                    
+                            v-on:change="changeSelection('childSupport', 'disagreeChildSupport', $event)" 
+                            value="disagreeChildSupport">
+                            <div class="checkbox-choices">I disagree with the request of the other party. A different order about child support should be made. 🠆 Complete Schedule 2 </div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('childSupport', 'counterChildSupport', $event)" 
+                            value="counterChildSupport">
+                            <div class="checkbox-choices">I am making a counter application for an order about child support. No application about this family law matter was made by the other party. </div>
                         </b-form-checkbox>
                     </div>
                     
@@ -105,25 +95,21 @@
                         <div class="checkbox-choices-header text-primary">Contact with a child</div>
                         <b-form-checkbox 
                             class="mt-3"
-                            v-on:change="changeSelection('contact', 'newContact', $event)" 
-                            value="newContact">
-                            <div class="checkbox-choices">Contact with a child - new</div>
-                            <p>
-                                Schedule 5 of the application was completed by the other party. 
-                                They are asking for an order about contact with a child because 
-                                there wasn’t already one in place.
-                            </p>                    
+                            v-on:change="changeSelection('contact', 'agreeContact', $event)" 
+                            value="agreeContact">
+                            <div class="checkbox-choices">I agree with the request of the other party</div>
+                       </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('contact', 'disagreeContact', $event)" 
+                            value="disagreeContact">
+                            <div class="checkbox-choices">I disagree with the request of the other party. A different order about contact with a  child should be made. 🠆 Complete Schedule 3 </div>
                         </b-form-checkbox>
                         <b-form-checkbox 
-                            v-on:change="changeSelection('contact', 'existingContact', $event)" 
-                            value="existingContact">
-                            <div class="checkbox-choices">Contact order/agreement – existing </div>
-                            <p>
-                                Schedule 6 of the application was completed by the other party. 
-                                They are asking for an order about a contact order or agreement 
-                                that already exists.
-                            </p>                    
+                            v-on:change="changeSelection('contact', 'counterContact', $event)" 
+                            value="counterContact">
+                            <div class="checkbox-choices"> I am making a counter application for an order about contact with a child. No application about this family law matter was made by the other party. </div>
                         </b-form-checkbox>
+                        
                     </div>
                     
                 </b-form-checkbox-group>
@@ -140,20 +126,11 @@
                             v-on:change="changeSelection('guardianship', 'appointing', $event)" 
                             value="appointing">
                             <div class="checkbox-choices">Appointing a guardian of a child</div>
-                            <p>
-                                Schedule 7 of the application was completed by the other party. 
-                                They are asking for an order to appoint a new guardian for a child.
-                            </p>                    
                         </b-form-checkbox>
                         <b-form-checkbox 
                             v-on:change="changeSelection('guardianship', 'cancelling', $event)" 
                             value="cancelling">
                             <div class="checkbox-choices">Cancelling guardianship of a child </div>
-                            <p>
-                                Schedule 8 of the application was completed by the other party. 
-                                They are asking for an order to cancel someone’s guardianship 
-                                of a child. 
-                            </p>                    
                         </b-form-checkbox>
                     </div>
                     
@@ -185,6 +162,38 @@
                                 Schedule 10 of the application was completed by the other party. 
                                 They are asking for an order about a spousal support order or 
                                 agreement that already exists.
+                            </p>                    
+                        </b-form-checkbox>
+                    </div>
+                    
+                </b-form-checkbox-group>
+
+                <b-form-checkbox-group
+                    :disabled="rejectedPathway"
+                    v-model="selectedCompanionAnimalForm" 
+                    stacked
+                    >                                
+                    <div class="checkbox-border">
+                        <div class="checkbox-choices-header text-primary">Property Division</div>
+                        <b-form-checkbox 
+                            class="mt-3"
+                            v-on:change="changeSelection('companionAnimal', 'newCompanionAnimal', $event)" 
+                            value="newCompanionAnimal">
+                            <div class="checkbox-choices">In respect of a companion animal - new</div>
+                            <p>
+                                Schedule 11 of the application was completed by the other party. 
+                                They are asking for an order about property division in respect of 
+                                a companion animal because there wasn’t already one in place.
+                            </p>                    
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('companionAnimal', 'existingCompanionAnimal', $event)" 
+                            value="existingCompanionAnimal">
+                            <div class="checkbox-choices">Companion animal agreement – existing </div>
+                            <p>
+                                Schedule 12 of the application was completed by the other party. 
+                                They are asking for an order about a property division agreement 
+                                in respect of a companion animal that already exists.
                             </p>                    
                         </b-form-checkbox>
                     </div>
@@ -239,7 +248,8 @@ export default class RflmQuestionnaire extends Vue {
     selectedChildSupportForm = [];
     selectedContactWithChildForm = [];
     selectedGuardianshipForm = [];
-    selectedSpousalSupportForm = [];   
+    selectedSpousalSupportForm = [];
+    selectedCompanionAnimalForm = [];   
 
     currentStep = 0;
     currentPage = 0;
@@ -254,6 +264,7 @@ export default class RflmQuestionnaire extends Vue {
     public reloadPageInformation() {   
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.forceAddExistingLocation()
         
         if (this.step.result?.rflmQuestionnaireSurvey) {
             const rflmData = this.step.result.rflmQuestionnaireSurvey.data;
@@ -262,6 +273,7 @@ export default class RflmQuestionnaire extends Vue {
             this.selectedContactWithChildForm = rflmData.selectedContactWithChildForm?rflmData.selectedContactWithChildForm:[];
             this.selectedGuardianshipForm = rflmData.selectedGuardianshipForm?rflmData.selectedGuardianshipForm:[];
             this.selectedSpousalSupportForm = rflmData.selectedSpousalSupportForm?rflmData.selectedSpousalSupportForm:[];
+            this.selectedCompanionAnimalForm = rflmData.selectedCompanionAnimalForm?rflmData.selectedCompanionAnimalForm:[];
             if(this.getSelected())
                 this.determineSteps();
         }
@@ -279,7 +291,8 @@ export default class RflmQuestionnaire extends Vue {
                         this.selectedChildSupportForm.length>0 ||
                         this.selectedContactWithChildForm.length>0 ||
                         this.selectedGuardianshipForm.length>0 ||
-                        this.selectedSpousalSupportForm.length>0
+                        this.selectedSpousalSupportForm.length>0 ||
+                        this.selectedCompanionAnimalForm.length>0
 
         return selected;
 
@@ -305,6 +318,10 @@ export default class RflmQuestionnaire extends Vue {
             if (list.length>0){
                 this.selectedSpousalSupportForm = [selection];            
             }
+        } else if (category == 'companionAnimal'){
+            if (list.length>0){
+                this.selectedCompanionAnimalForm = [selection];            
+            }
         }
 
         this.UpdatePathwayCompleted({pathway:"replyFlm", isCompleted:false})        
@@ -316,7 +333,8 @@ export default class RflmQuestionnaire extends Vue {
             this.selectedChildSupportForm = [];
             this.selectedContactWithChildForm = [];
             this.selectedGuardianshipForm = [];
-            this.selectedSpousalSupportForm = [];                                    
+            this.selectedSpousalSupportForm = [];
+            this.selectedCompanionAnimalForm = [];
         }
         Vue.filter('surveyChanged')('replyFlm'); 
     }    
@@ -399,6 +417,9 @@ export default class RflmQuestionnaire extends Vue {
         if (this.selectedSpousalSupportForm.includes('newSpouseSupport')) result+='New Spousal Support'+'\n';
         else if (this.selectedSpousalSupportForm.includes('existingSpouseSupport')) result+='Existing Spousal Support'+'\n';
         
+        if (this.selectedCompanionAnimalForm.includes('newCompanionAnimal')) result+='New Companion Animal'+'\n';
+        else if (this.selectedCompanionAnimalForm.includes('existingCompanionAnimal')) result+='Existing Companion Animal'+'\n';
+
         return result;
     }
 
@@ -408,9 +429,25 @@ export default class RflmQuestionnaire extends Vue {
         result.selectedChildSupportForm = this.selectedChildSupportForm;
         result.selectedContactWithChildForm = this.selectedContactWithChildForm;
         result.selectedGuardianshipForm = this.selectedGuardianshipForm;
-        result.selectedSpousalSupportForm = this.selectedSpousalSupportForm;        
+        result.selectedSpousalSupportForm = this.selectedSpousalSupportForm;
+        result.selectedCompanionAnimalForm = this.selectedCompanionAnimalForm;        
         return result;
     }
+
+    public forceAddExistingLocation(){
+        const locationStep = this.stPgNo.COMMON._StepNo
+        const locationPage = this.stPgNo.COMMON.FilingLocation
+        
+        const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
+        const replyExistingOrder = existingOrders.filter(order => order.type=='RPL');
+        if(replyExistingOrder[0] && !replyExistingOrder[0].fileNumber)
+            this.NavigateToPage(locationStep,locationPage)
+    }
+
+    public NavigateToPage(stepNo, pageNo){
+        this.$store.commit("Application/setCurrentStep", stepNo);
+        this.$store.commit("Application/setCurrentStepPage", {currentStep: stepNo, currentPage: pageNo });        
+    }   
   
     beforeDestroy() {
         const progress = !this.getSelected()? 50 : 100;

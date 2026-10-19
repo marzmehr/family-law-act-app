@@ -1,5 +1,5 @@
 import logging
-import urllib
+import requests
 import json
 
 from rest_framework.request import Request
@@ -22,7 +22,7 @@ def get_login_uri(request: Request = None, next: str = None) -> str:
         try:
             uri = "{base_url}?{querystring}".format(
                 base_url=reverse("oidc_auth_request", request=request),
-                querystring=urllib.parse.urlencode(query_dictionary),
+                querystring=requests.compat.urlencode(query_dictionary),
             )
         except NoReverseMatch:
             pass
@@ -35,8 +35,8 @@ def get_logout_uri(request: Request = None) -> str:
         try:
             uri = (
                 settings.OIDC_RP_PROVIDER_ENDPOINT
-                + "/protocol/openid-connect/logout?redirect_uri={end_session}&retnow=1&client_id={clientid}".format(
-                    end_session=reverse("oidc_end_session", request=request), clientid=settings.OIDC_RP_CLIENT_ID
+                + "/protocol/openid-connect/logout?post_logout_redirect_uri={end_session}&kc_idp_hint={kcIdpHint}&retnow=1&client_id={clientid}".format(
+                    end_session=reverse("oidc_end_session", request=request), kcIdpHint=settings.OIDC_RP_KC_IDP_HINT, clientid=settings.OIDC_RP_CLIENT_ID
                 )
             )
         except NoReverseMatch:
@@ -82,13 +82,13 @@ def build_get_user_object(logged_in, request):
 
 def user_authorized_for_stats(request):
 
-    if (isinstance(request.user, User)): 
+    if (isinstance(request.user, User)):
         user_email = request.user.email
         username = request.user.username
         stats_authorized_list = json.loads(settings.STATS_AUTHORIZED_LIST)
 
         for person in stats_authorized_list:
             if person["email"]==user_email and person["username"]==username:
-                return True    
-    
+                return True
+
     return False

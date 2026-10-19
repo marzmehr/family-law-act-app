@@ -20,7 +20,7 @@
                     Mediation is a meeting in an informal, neutral setting with a trained mediator 
                     who helps you and the other person talk about the issues and reach an agreement. 
                     <a  class="mr-1"
-                        href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-counsellors"
+                        href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-services-division/family-justice-counsellors"
                         target="_blank">Family Justice Counsellors
                     </a> provide free family mediation services throughout BC. 
                     You can also hire a 
@@ -138,7 +138,7 @@
                         
                         <li>
                             <a 
-                                href="https://pubsdb.lss.bc.ca/resources/pdfs/pubs/How-Can-We-Resolve-Our-Family-Law-Issues-poster-eng.pdf"
+                                href="https://legalaid.bc.ca/family"
                                 target="_blank">Legal Aid BC
                             </a>
                         </li>

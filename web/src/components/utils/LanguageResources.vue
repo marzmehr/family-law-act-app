@@ -49,7 +49,7 @@
 			</a> and 
 			<a 
 				target="_blank" 
-				href="https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F">
+				href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-services-division/justice-access-centres">
 				Justice Access Centre
 			</a> 
 			can arrange a <b>free</b> interpreter (spoken language and visual language) for 
@@ -169,7 +169,7 @@
 				<li>
 					<a
 						target="_blank" 
-						href="https://www.immigrantlegal.ca/">
+						href="https://www.canada.ca/en/immigration-refugees-citizenship/campaigns/newcomers.html">
 						ImmigrantLegal.ca</a> - free legal information for newcomers to Canada and 
 						people working with them.
 				</li>

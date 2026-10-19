@@ -112,7 +112,7 @@
             <div class="mx-5 mb-5">
                 <p class="help-header" style="font-weight: 700;">JUSTICE ACCESS CENTRES & FAMILY JUSTICE CENTRES</p>                
                 <p> 
-                    <a href="https://www2.gov.bc.ca/gov/content/justice/about-bcs-justice-system/jac"
+                    <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-services-division/justice-access-centres"
                         target="_blank">Justice Access Centres
                     </a> and 
                     <a href="https://www2.gov.bc.ca/gov/content?id=2E7DCCDAD5A94D61B777A80AE8639ABD"
@@ -150,7 +150,7 @@
                     <p>Free Government Service:
                         <ul>
                             <li>
-                                <a  href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-counsellors"
+                                <a  href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-services-division/family-justice-counsellors"
                                     target="_blank">Family Justice Counsellors
                                 </a>
                             </li>
@@ -159,12 +159,12 @@
                     <p>Other Services:
                         <ul>
                             <li>
-                                <a  href="https://mylawbc.com/"
-                                    target="_blank">MyLawBC
+                                <a  href="https://www.familylawinbc.ca/"
+                                    target="_blank">Family Law in BC
                                 </a>
                             </li>
                             <li>
-                                <a  href="https://www.mediatebc.com/find-a-mediator?RosterTypeId=2"
+                                <a  href="https://mediatebc.com/our-services/roster/"
                                     target="_blank">Mediators
                                 </a>
                             </li>
@@ -201,7 +201,7 @@
                     </p>
                     <p>
                         Registry staff and staff at any
-                        <a href="https://www2.gov.bc.ca/gov/content/justice/about-bcs-justice-system/jac"
+                        <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-services-division/justice-access-centres"
                         target="_blank">Justice Access Centres
                     </a> and 
                     <a href="https://www2.gov.bc.ca/gov/content?id=2E7DCCDAD5A94D61B777A80AE8639ABD"
@@ -269,12 +269,12 @@
                 <p>
                     The Provincial Court of BC website provides information and resources including 
                     the 
-                    <a href="https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf"
+                    <a href="https://provincialcourt.bc.ca/navigating-court-case/family/family-orders-picklists"
                         target="_blank">Family Law Picklist</a>, 
-                    <a href="https://www.provincialcourt.bc.ca/types-of-cases/family-matters"
+                    <a href="https://provincialcourt.bc.ca/navigating-court-case/family"
                         target="_blank">Resources for Family Cases
                     </a>,
-                    <a href="https://www.provincialcourt.bc.ca/about-the-court/practice-directions"
+                    <a href="https://provincialcourt.bc.ca/news-notices-policies-and-practice-directions/notices-policies-practice-directions"
                         target="_blank">Practice Directions and Notices to the Profession and the Public
                     </a>, and 
                     <a href="https://www.provincialcourt.bc.ca/judgments-decisions"
@@ -298,8 +298,8 @@
                     Amici Curiae Friendship Society (AC) provides legal assistance to individuals who 
                     require help drafting or filling out legal forms. Visit their website for more 
                     information:
-                    <a href="https://www.legalformsbc.ca/about-acfs.html#/"
-                        target="_blank">www.legalformsbc.ca/about-acfs.html#/ 
+                    <a href="https://www.legalformsbc.ca/services"
+                        target="_blank">www.legalformsbc.ca/services
                     </a>                                       
                 </p>
 
@@ -468,8 +468,8 @@ export default class NavigationTopbar extends Vue {
     }
 
     public viewStatus() {
-
-        this.$router.push({ name: "applicant-status" });
+        if(this.$route.name != "applicant-status")
+            this.$router.push({ name: "applicant-status" });
     }
 }
 </script>

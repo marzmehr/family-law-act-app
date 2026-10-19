@@ -20,7 +20,8 @@ export const FLA_Types = [
     {pathway:"agreementEnfrc28",                            pdfType:"RORD", appType:"RORD",          familyType:"ENFRC", otherForms:false, fullName:"File an Order"},
 
     {pathway:"replyFlm",                                    pdfType:"RPL",  appType:"RFLM",          familyType:"RFLM",  otherForms:false, fullName:"Reply to Application About a Family Law Matter"},
-    
+    {pathway:"replyFamilyLawManual",                        pdfType:"RPL",  appType:"RTFLM",         familyType:"RTFLM",  otherForms:false, fullName:"Reply to Application About a Family Law Matter"},
+
     {pathway:"writtenResponse",                             pdfType:"WRA",   appType:"WRA",          familyType:"WR",    otherForms:false, fullName:"Written Response to Application"},    
     {pathway:"replyCaseMgmt",                               pdfType:"WRA",   appType:"RCM",          familyType:"WR",    otherForms:false, fullName:"Reply to Application for Case Management Order"},
     {pathway:"replyProtectionOrder",                        pdfType:"WRA",   appType:"RPO",          familyType:"WR",    otherForms:false, fullName:"Reply to Application About a Protection Order"},
@@ -40,6 +41,12 @@ export const FLA_Types = [
     {pathway:"consentOrder",                                pdfType:"COR",   appType:"COR",          familyType:"COR",    otherForms:true, fullName:"Consent Order"},
     {pathway:"consentInformalTrial",                        pdfType:"CIFT",  appType:"CIFT",         familyType:"CIFT",   otherForms:true, fullName:"Consent to an Informal Trial (Kamloops only)"},
     {pathway:"electronicFilingStatement",                   pdfType:"EFSP",  appType:"EFSP",         familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement"},
+    {pathway:"electronicFilingStatementAff",                pdfType:"EFSPAFF",  appType:"EFSPA",     familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Affidavit General"},
+    {pathway:"electronicFilingStatementGa",                 pdfType:"EFSPGA",  appType:"EFSPG",      familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Guardianship Affidavit"},
+    {pathway:"electronicFilingStatementAps",                pdfType:"EFSPAPS",  appType:"EFSPS",     familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Affidavit of Personal service"},
+    {pathway:"electronicFilingStatementApsp",               pdfType:"EFSPAPSP",  appType:"EFSPP",    familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Affidavit of Personal Service of Protection Order"},
+    {pathway:"electronicFilingStatementCsv",                pdfType:"EFSPCSV",  appType:"EFSPC",     familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Certificate of Service"},
+    {pathway:"electronicFilingStatementFs",                 pdfType:"EFSPFS",  appType:"EFSPFS",     familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Financial Statement"},
     {pathway:"faxFilingCoverPage",                          pdfType:"FF",    appType:"FF",           familyType:"FF",     otherForms:true, fullName:"Fax Filing Cover Page"},
     
     {pathway:"financialStatement",                          pdfType:"FS",    appType:"FS",           familyType:"FS",     otherForms:true, fullName:"Financial Statement"},
@@ -54,7 +61,8 @@ export const FLA_Types = [
     {pathway:"noticeRemoveLawyerChild",                     pdfType:"NLCR",  appType:"NLCR",         familyType:"NLCR",   otherForms:true, fullName:"Notice of Removal of Lawyer for Child"},
     {pathway:"noticeRemoveLawyerParty",                     pdfType:"NLPR",  appType:"NLPR",         familyType:"NLPR",   otherForms:true, fullName:"Notice of Removal of Lawyer for Party"},
     {pathway:"order",                                       pdfType:"ORD",   appType:"ORD",          familyType:"ORD",    otherForms:true, fullName:"Order – General"},
-    {pathway:"referralRequest",                             pdfType:"REF",   appType:"REF",          familyType:"REF",    otherForms:true, fullName:"Referral Request"},
+    // Removed "REF" in FLA_Types array as per https://jira.justice.gov.bc.ca/browse/PFCF-539
+    // {pathway:"referralRequest",                             pdfType:"REF",   appType:"REF",          familyType:"REF",    otherForms:true, fullName:"Referral Request"},
     {pathway:"requestScheduling",                           pdfType:"RQS",   appType:"RQS",          familyType:"RQS",    otherForms:true, fullName:"Request for Scheduling"},    
     {pathway:"requestServiceDocuments",                     pdfType:"RFS",   appType:"RFS",          familyType:"RFS",    otherForms:true, fullName:"Request for Service of Documents"},
     {pathway:"requestServiceFPO",                           pdfType:"RPS",   appType:"RPS",          familyType:"RPS",    otherForms:true, fullName:"Request for Service of Family Protection Order"},

@@ -116,7 +116,7 @@
                      "titleLocation": "hidden",
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'n' and {ExplanationCourtLocation}>0",
-                     "body": "You can find a map of the court locations and addresses <a href=\"https://www.provincialcourt.bc.ca/locations-contacts\" target=\"_blank\">here</a>. If two locations are both close, you can decide which is closest for filing your application. If the other party doesn’t agree, they can ask the court to transfer the file to the other location. It will then be up to the court to decide where the file is located."
+                     "body": "You can find a map of the court locations and addresses <a href=\"https://www2.gov.bc.ca/gov/content/justice/criminal-justice/bcs-criminal-justice-system/services-and-resources/courthouse-services\" target=\"_blank\">here</a>. If two locations are both close, you can decide which is closest for filing your application. If the other party doesn’t agree, they can ask the court to transfer the file to the other location. It will then be up to the court to decide where the file is located."
                   },
                   {
                      "type": "helptext",
@@ -224,7 +224,7 @@
                         {
                            "type": "infotext",
                            "name": "MetEarlyResolutionRequirementsExplanation",
-                           "title": "If you were required to complete a parenting education program and have not already submitted your certificate of completion for the online parenting course to the Justice Access Centre, you will be required to submit a copy with this reply. <br> The <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> will let the court registry know that you have met the other requirements.",
+                           "title": "If you were required to complete a parenting education program and have not already submitted your certificate of completion for the online parenting course to the Justice Access Centre, you will be required to submit a copy with this reply. <br> The <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-services-division/justice-access-centres\" target=\"blank\">Justice Access Centre</a> will let the court registry know that you have met the other requirements.",
                            "titleLocation": "hidden",
                            "visible": false,
                            "visibleIf": "({rflmIncluded}) and ({MetEarlyResolutionRequirements} = 'y')"
@@ -232,7 +232,7 @@
                         {
                            "type": "infotext",
                            "name": "MetEarlyResolutionRequirementsExplanation",
-                           "title": "Be sure to let the <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> where you attended for your needs assessment know you are planning to file your application. They will send the court registry proof of your participation or exemption in the early resolution requirements so that you can file your application.",
+                           "title": "Be sure to let the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-services-division/justice-access-centres\" target=\"blank\">Justice Access Centre</a> where you attended for your needs assessment know you are planning to file your application. They will send the court registry proof of your participation or exemption in the early resolution requirements so that you can file your application.",
                            "titleLocation": "hidden",
                            "visible": false,
                            "visibleIf": "({MetEarlyResolutionRequirements} = 'y') and !({rflmIncluded})"
@@ -240,7 +240,7 @@
                         {
                            "type": "infotext",
                            "name": "NotMetEarlyResolutionRequirementsExplanation",
-                           "title": "The first step to resolving a family law matter at an early resolution registry is meeting the early resolution requirements.<br>Contact the <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> nearest to where the application was filed to get more information on how to meet the requirements. Staff at the Justice Access Centre can also provide you with information about whether you need to complete a parenting education course, how to complete it, or information about how to get an exemption.<br><br>Once you have met the early resolution requirements, return to the Online Forms Service and select “YES” to complete your reply.<br><br>If you have already been given an exemption from one or more of the early resolution requirements or it was determined that CDR is not appropriate, select “YES” as you have met the requirements.<br><br>If you will be meeting the requirements before filing your reply (either you completed each requirement or you are expecting an exemption to complete one or more requirements), select “YES” to finish completing your reply to file.",
+                           "title": "The first step to resolving a family law matter at an early resolution registry is meeting the early resolution requirements.<br>Contact the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-services-division/justice-access-centres\" target=\"blank\">Justice Access Centre</a> nearest to where the application was filed to get more information on how to meet the requirements. Staff at the Justice Access Centre can also provide you with information about whether you need to complete a parenting education course, how to complete it, or information about how to get an exemption.<br><br>Once you have met the early resolution requirements, return to the Online Forms Service and select “YES” to complete your reply.<br><br>If you have already been given an exemption from one or more of the early resolution requirements or it was determined that CDR is not appropriate, select “YES” as you have met the requirements.<br><br>If you will be meeting the requirements before filing your reply (either you completed each requirement or you are expecting an exemption to complete one or more requirements), select “YES” to finish completing your reply to file.",
                            "titleLocation": "hidden",
                            "messageStyle": "inline",
                            "visible": false,
@@ -249,7 +249,7 @@
                         {
                            "type": "infotext",
                            "name": "NotMetEarlyResolutionRequirementsExplanation",
-                           "title": "The first step to resolving a family law matter at an early resolution registry is to complete the Notice to Resolve a Family Matter form, provide a copy to the other party, and contact the <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> to complete your early resolution requirements. We’ll help you to complete and file your form.",
+                           "title": "The first step to resolving a family law matter at an early resolution registry is to complete the Notice to Resolve a Family Matter form, provide a copy to the other party, and contact the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-services-division/justice-access-centres\" target=\"blank\">Justice Access Centre</a> to complete your early resolution requirements. We’ll help you to complete and file your form.",
                            "titleLocation": "hidden",
                            "messageStyle": "inline",
                            "visible": false,

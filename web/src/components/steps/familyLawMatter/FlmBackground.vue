@@ -72,6 +72,9 @@ export default class FlmBackground extends Vue {
     spousalSupportNewPages = []
     spousalSupportExistingPages = []
 
+    companionAnimalNewPages = []
+    companionAnimalExistingPages = []
+
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
@@ -106,6 +109,10 @@ export default class FlmBackground extends Vue {
 
         this.spousalSupportNewPages = [p.SpousalSupport, p.SpousalSupportIncomeAndEarningPotential, p.AboutSpousalSupportOrder, p.CalculatingSpousalSupport]
         this.spousalSupportExistingPages = [p.ExistingSpousalSupportOrderAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport]
+
+        this.companionAnimalNewPages = [p.PropertyDivisionCompanionAnimal, p.CompanionAnimalFacts]
+        this.companionAnimalExistingPages = [p.CompanionAnimalExistingAgreement]
+
     }
 
     public initializeSurvey(){
@@ -166,20 +173,17 @@ export default class FlmBackground extends Vue {
 
         if( stepCOM.result?.filingLocationSurvey?.data){
             const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-            this.formOneRequired = this.determineRequiredForm(filingLocationData);            
+            this.formOneRequired = this.determineFormOneRequired(filingLocationData);            
         }
 
         this.survey.setVariable("formOneRequired", this.formOneRequired);
         
-        if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){
-            this.setPages()
-        }
-
+        this.setPages()
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
     public setPages() {
-
         if (this.selectedForms) {
                         
             togglePages(this.allPages, false, this.currentStep);
@@ -234,18 +238,25 @@ export default class FlmBackground extends Vue {
                         togglePages(this.spousalSupportNewPages, true, this.currentStep);
                 }
 
+                if (this.selectedForms.includes("companionAnimal")) { 
+                    if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Property Division in Respect of a Companion Animal'))
+                        togglePages(this.companionAnimalExistingPages , true, this.currentStep);
+                    else          
+                        togglePages(this.companionAnimalNewPages, true, this.currentStep);
+                }
+
             }
 
            
         }
     }
 
-    public determineRequiredForm(filingLocationData){
+    public determineFormOneRequired(filingLocationData){
         
         let location = ''
         location = filingLocationData?.ExistingCourt;                
         
-        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
+        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && (filingLocationData?.MetEarlyResolutionRequirements == 'n' && filingLocationData?.courtLocationVictoriaSurrey)){
             return true;
         } else {
             return false;

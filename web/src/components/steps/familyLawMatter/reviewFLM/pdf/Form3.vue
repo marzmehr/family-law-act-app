@@ -9,10 +9,13 @@
         <schedule-4 v-bind:result="result"  v-if="selectedSchedules.includes('schedule4')" />
         <schedule-5 v-bind:result="result"  v-if="selectedSchedules.includes('schedule5')" />
         <schedule-6 v-bind:result="result"  v-if="selectedSchedules.includes('schedule6')" />
-        <schedule-7 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule7')" />
-        <schedule-8 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule8')" />
+        <!-- Note: New version of the forms, Schedule 8 is merged into Schedule 7  -->
+        <schedule-7 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule7') || selectedSchedules.includes('schedule8')" />
+        <!-- <schedule-8 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule8')" /> --> 
         <schedule-9 v-bind:result="result"  v-if="selectedSchedules.includes('schedule9')" />
         <schedule-10 v-bind:result="result" v-if="selectedSchedules.includes('schedule10')" />
+        <schedule-11 v-bind:result="result"  v-if="selectedSchedules.includes('schedule11')" />
+        <schedule-12 v-bind:result="result" v-if="selectedSchedules.includes('schedule12')" />
 
     </b-card>
 </div>
@@ -36,6 +39,8 @@ import Schedule7 from "./Schedules/Schedule7.vue"
 import Schedule8 from "./Schedules/Schedule8.vue"
 import Schedule9 from "./Schedules/Schedule9.vue"
 import Schedule10 from "./Schedules/Schedule10.vue"
+import Schedule11 from "./Schedules/Schedule11.vue"
+import Schedule12 from "./Schedules/Schedule12.vue"
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
@@ -54,7 +59,9 @@ import moment from 'moment';
         Schedule7,
         Schedule8,
         Schedule9,
-        Schedule10, 
+        Schedule10,
+        Schedule11,
+        Schedule12 
     }
 })
 
@@ -85,8 +92,8 @@ export default class Form3 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA 712   `+moment().format("MMMM D, YYYY")+` \\a           Form 3";`;
-        const bottomRightText = `" "`
+        const bottomLeftText = `"PFA 712   `+moment().format("D/YYYY")+` \\a           Form 3";`;
+        const bottomRightText = `" Application Family Law Matter | "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
@@ -161,6 +168,9 @@ export default class Form3 extends Vue {
             if (selectedFLMs?.includes("spousalSupport")){
                 schedules.push("schedule9")
             }
+            if (selectedFLMs?.includes("companionAnimal")){
+                schedules.push("schedule11")
+            }
 
         } else if (flmBackgroundInfo?.ExistingOrdersFLM == 'y' && flmBackgroundInfo?.existingOrdersListFLM?.length > 0){
 
@@ -194,6 +204,14 @@ export default class Form3 extends Vue {
                     schedules.push("schedule10")
                 } else {
                     schedules.push("schedule9");
+                }
+            } 
+
+            if (selectedFLMs?.includes("companionAnimal")){
+                if (flmBackgroundInfo.existingOrdersListFLM?.includes("Property Division in Respect of a Companion Animal")){
+                    schedules.push("schedule12")
+                } else {
+                    schedules.push("schedule11");
                 }
             } 
         }

@@ -1,10 +1,50 @@
-export const FamilyJusticeRegistries = [
-    "4801",//"Kelowna Law Courts", 
-    "1091", //"Nanaimo Law Courts", 
-    "2045",//"Robson Square Provincial Court"
-];
+export const FamilyJusticeRegistries = [];
 
 export const EarlyResolutionsRegistries = [
-    "1201",//"Victoria Law Courts",
-    "3585"//"Surrey Provincial Court"
+    "3561", // "Abbotsford Law Courts"
+    "1131", // "Ahousaht"
+    "2007", // "Bella Bella Provincial Court"
+    "2008", // "Bella Coola Provincial Court"
+    "1031", // "Campbell River Court"
+    "4681", // "Castlegar Provincial Court"
+    "3521", // "Chilliwack Law Courts"
+    "4701", // "Clearwater Provincial Court"
+    "1041", // "Courtenay Law Courts"
+    "4711", // "Cranbrook Law Courts"
+    "4721", // "Creston Law Courts"
+    "1051", // "Duncan Law Courts"
+    "4731", // "Fernie Law Courts"
+    "4741", // "Golden Law Courts"
+    "1071", // "Gold River Provincial Court"
+    "4751", // "Grand Forks Law Courts"
+    "4771", // "Invermere Law Courts"
+    "4781", // "Kamloops Court"
+    "4801", // "Kelowna Law Courts"
+    "2009", // "Klemtu"
+    "4821", // "Lillooet Law Courts"
+    "4851", // "Merritt Law Court"
+    "4861", // "Nakusp Provincial Court"
+    "1091", // "Nanaimo Law Courts"
+    "4871", // "Nelson Law Courts"
+    "3581", // "New Westminster Law Courts"
+    "2011", // "North Vancouver Court"
+    "2021", // "Pemberton Provincial Court"
+    "4891", // "Penticton Law Courts"
+    "1121", // "Port Alberni Law Courts"
+    "3531", // "Port Coquitlam Court"
+    "1141", // "Port Hardy Law Courts"
+    "1145", // "Powell River Law Courts" 
+    "4901", // "Princeton Law Courts" 
+    "4911", // "Revelstoke Law Courts"
+    "2025", // "Richmond Provincial Court"
+    "4921", // "Rossland Law Courts" 
+    "4941", // "Salmon Arm Law Courts" 
+    "2031", // "Sechelt Provincial Court"
+    "3585", // "Surrey Provincial Court"
+    "1181", // "Tofino Provincial Court"
+    "1191", // "Ucluelet Provincial Court"
+    "2045", // "Robson Square Provincial Court"
+    "4971", // "Vernon Law Courts"    
+    "1201", // "Victoria Law Courts",
+    "1211", // "Western Communities Provincial Court"
 ]; 

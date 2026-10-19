@@ -2,7 +2,9 @@
     <div v-if="dataReady">         
 <!-- <Page 9> --> 
 <!-- <Header> -->
-        <div v-if="selectedSchedules.includes('schedule8')">
+    <!-- This template is not in use: check https://jag.gov.bc.ca/jira/browse/PFCF-491 -->
+     <!-- In new version of forms developed Aug, 2024, schedule 8 is merged into schedule 7 -->
+        <div v-if="selectedSchedules.includes('notinuse')">
             <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 8 – CANCELLING GUARDIANSHIP OF A CHILD OR CHILDREN</b></div>
             <div style="text-align:center;"><b>This is Schedule 8 to the Application About a Family Law Matter</b></div>

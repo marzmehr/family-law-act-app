@@ -206,6 +206,7 @@ export class MigrateStore{
         
         pathwayCompleted.protectionOrder = false;
         pathwayCompleted.replyFlm = false;
+        pathwayCompleted.replyFamilyLawManual = false;        
         pathwayCompleted.writtenResponse = false;
         pathwayCompleted.replyCounterApplication = false;        
         pathwayCompleted.familyLawMatter = false;        
@@ -223,7 +224,11 @@ export class MigrateStore{
         pathwayCompleted.noticeLawyerParty = false;
         pathwayCompleted.noticeRemoveLawyerParty = false;
         pathwayCompleted.affidavit = false;
-        pathwayCompleted.electronicFilingStatement = false;
+        pathwayCompleted.guardianshipAffidavit = false;
+        pathwayCompleted.affidavitPersonalService = false;
+        pathwayCompleted.affidavitPersonalServicePO = false;
+        pathwayCompleted.certificateOfService = false;
+        pathwayCompleted.financialStatement = false;
 
         pathwayCompleted.other = false;
         //TODO: add the other pathway

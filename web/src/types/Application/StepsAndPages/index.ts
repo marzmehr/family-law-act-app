@@ -28,9 +28,14 @@ export interface stepsAndPagesNumberInfoType{
     NLCR: NLCRstPgTypes;
     NLP: NLPstPgTypes;
     NLPR: NLPRstPgTypes;
-    AFF: AFFstPgTypes;
-    EFSP: EFSPstPgTypes;
+    AFF: AFFstPgTypes;    
+    GA: GAstPgTypes;
+    APS: APSstPgTypes;
+    APSP: APSPstPgTypes;
+    CSV: CSVstPgTypes;
+    FS: FSstPgTypes;
     SUBMIT: SUBMITstPgTypes;
+    RTFLM: RTFLMstPgTypes;
 }
  
 export interface GETSTARTstPgTypes{
@@ -105,7 +110,13 @@ export interface RFLMstPgTypes{
     RflmCalculatingSpouseSupport: number;
     ReplyExistingSpouseSupport: number;
     RflmUnpaidSpouseSupport: number;
-    DisagreeExistingSpouseSupport: number;    
+    DisagreeExistingSpouseSupport: number;
+    ReplyNewPropertyDivision: number;
+    AnimalRelationshipToOtherParty: number;
+    DisagreePropertyDivision: number;
+    PropertyDivisionOrder: number;
+    ReplyExistingPropertyDivision: number;
+    DisagreeExistingPropertyDivisionOrder: number;
     RflmAdditionalDocuments: number;
     YourApplication: number;
     ParentingArrangements: number;
@@ -143,9 +154,18 @@ export interface RFLMstPgTypes{
     CalculatingSpousalSupport: number;
     AboutExistingSpousalSupportOrder: number;
     UnpaidSpousalSupport: number;
+    PropertyDivisionCompanionAnimal: number;
+    CompanionAnimalFacts: number;
+    CompanionAnimalExistingAgreement: number;
     FlmAdditionalDocuments: number;
     ReviewYourAnswersRFLM: number;
     PreviewFormsRFLM: number; 
+}
+
+export interface RTFLMstPgTypes{
+    _StepNo: number;  
+
+    FamilyLawManual: number;   
 }
 
 export interface WRstPgTypes{
@@ -206,6 +226,9 @@ export interface FLMstPgTypes{
     CalculatingSpousalSupport: number;
     AboutExistingSpousalSupportOrder: number;
     UnpaidSpousalSupport: number;
+    PropertyDivisionCompanionAnimal: number;
+    CompanionAnimalFacts: number;
+    CompanionAnimalExistingAgreement: number;
     FlmAdditionalDocuments: number;
     ReviewYourAnswersFLM: number;
     PreviewFormsFLM: number;
@@ -222,6 +245,7 @@ export interface CMstPgTypes{
     Scheduling: number;
     AboutCaseManagementOrder: number;
     CmChildrenInfo: number;
+    ApplicationUnderFOAEAA: number;
     AttendanceUsingElectronicCommunication: number;
     ChangingOrCancellingAServiceOrNotice: number;
     ChangingOrCancellingAnyOtherRequirement: number;
@@ -291,6 +315,7 @@ export interface NCDstPgTypes{
     _StepNo: number;
     
     AddressChange: number;
+    OtherParty: number;
     AddressChangeNotice: number; 
     ReviewYourAnswersNCD: number;
     PreviewFormsNCD: number;
@@ -367,8 +392,80 @@ export interface AFFstPgTypes{
     AboutAffiant: number;
     YourStoryAFF: number;
     FilingAFF: number;
+    ElectronicFilingStatementAFF: number;
     ReviewYourAnswersAFF: number;
     PreviewFormsAFF: number;
+    PreviewFormsEFSP: number;
+}
+
+export interface APSstPgTypes{
+    _StepNo: number;
+
+    AffidavitPersonalService: number;
+    AboutAffiantAps: number;
+    AboutServiceAPS: number;
+    ElectronicFilingStatementAPS: number;
+    ReviewYourAnswersAPS: number;
+    PreviewFormsAPS: number;
+    PreviewFormsApsEFSP: number;
+}
+
+export interface APSPstPgTypes{
+    _StepNo: number;
+
+    AffidavitPersonalServicePO: number;
+    AboutAffiantApsp: number;
+    AboutServiceAPSP: number;
+    ElectronicFilingStatementAPSP: number;
+    ReviewYourAnswersAPSP: number;
+    PreviewFormsAPSP: number;
+    PreviewFormsApspEFSP: number;
+}
+
+export interface CSVstPgTypes{
+    _StepNo: number;
+
+    CertificateOfService: number;
+    AboutAffiantCsv: number;
+    AboutServiceCSV: number;   
+    ElectronicFilingStatementCSV: number;
+    ReviewYourAnswersCSV: number;
+    PreviewFormsCSV: number;
+    PreviewFormsCsvEFSP: number;
+}
+
+export interface FSstPgTypes{
+    _StepNo: number;
+
+    FinancialStatement: number;
+    IncomeInformation: number;
+    ChangesIncomeFS: number;
+    IncomeSummaryFS: number;
+    DisclosureInformationFS: number;
+    ExpensesFS: number;
+    DebtsFS: number;
+    AssetsFS: number;
+    RealEstateFS: number;
+    CarsBoatsVehiclesFS: number;
+    CashAssetsFS: number;
+    InvestmentsFS: number;
+    LoansCreditsFS: number;
+    OtherAssetsFS: number;
+    DispositionAssetsFS: number;
+    IncomeOtherPersonHouseholdFS: number;
+    ContributionTowardExpensesFS: number;
+    UndueHardshipFS: number;
+    UnusuallyHighExpensesFS: number;
+    LegalDutyDependentChildFS: number;
+    LegalDutyAnotherPersonFS: number;
+    OtherCircumstancesFS: number;
+    AffidavitFS: number;
+    AboutAffiantFs: number;
+    FilingFS: number;
+    ElectronicFilingStatementFS: number;
+    ReviewYourAnswersFS: number;
+    PreviewFormsFS: number;
+    PreviewFormsFsEFSP: number;
 }
 
 export interface NLPstPgTypes{
@@ -387,12 +484,22 @@ export interface NLPRstPgTypes{
     PreviewFormsNLPR: number;
 }
 
-export interface EFSPstPgTypes{
+export interface GAstPgTypes{
     _StepNo: number;
 
-    ElectronicFilingStatement: number;    
-    ReviewYourAnswersEFSP: number;
-    PreviewFormsEFSP: number;
+    GuardianshipAffidavit: number;
+    AboutAffiantGa: number;
+    ChildrenDetailsGa: number;
+    CaringForChildGa: number;
+    BackgroundFamilyViolence: number;
+    BackgroundCivilCourtProceedings: number;
+    BackgroundCriminalHistory: number;
+    Exhibits: number;
+    FilingGA: number;
+    ElectronicFilingStatementGA: number;
+    ReviewYourAnswersGA: number;
+    PreviewFormsGA: number;
+    PreviewFormsGaEFSP: number;
 }
 
 export interface SUBMITstPgTypes{

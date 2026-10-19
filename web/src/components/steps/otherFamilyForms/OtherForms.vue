@@ -164,7 +164,8 @@ export default class OtherForms extends Vue {
         {formName: 'Notice of Removal of Lawyer for Child',                 formNumber: 'Form 41'},
         {formName: 'Notice of Removal of Lawyer for Party',                 formNumber: 'Form 43'},
         {formName: 'Order – General',                                       formNumber: 'Form 44'},
-        {formName: 'Referral Request',                                      formNumber: 'Form 21'},
+        // Removed "REF" in certificateGroup array as per https://jira.justice.gov.bc.ca/browse/PFCF-539
+        // {formName: 'Referral Request',                                      formNumber: 'Form 21'},
         {formName: 'Request for Scheduling',                                formNumber: 'Form 39'},
         {formName: 'Request for Service of Documents',                      formNumber: 'PFA110'},
         {formName: 'Request for Service of Family Protection Order',        formNumber: 'PFA916'},
@@ -251,7 +252,7 @@ export default class OtherForms extends Vue {
     }
 
     public resetSteps(){ //TODO add all new steps here    
-        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo, this.stPgNo.RQS._StepNo, this.stPgNo.TRIS._StepNo, this.stPgNo.NLC._StepNo, this.stPgNo.NLCR._StepNo, this.stPgNo.NLP._StepNo, this.stPgNo.NLPR._StepNo, this.stPgNo.AFF._StepNo, this.stPgNo.EFSP._StepNo], false);
+        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo, this.stPgNo.RQS._StepNo, this.stPgNo.TRIS._StepNo, this.stPgNo.NLC._StepNo, this.stPgNo.NLCR._StepNo, this.stPgNo.NLP._StepNo, this.stPgNo.NLPR._StepNo, this.stPgNo.AFF._StepNo, this.stPgNo.GA._StepNo, this.stPgNo.APS._StepNo, this.stPgNo.APSP._StepNo, this.stPgNo.CSV._StepNo, this.stPgNo.FS._StepNo], false);
     }
 
     public determineSteps(){

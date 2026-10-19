@@ -126,16 +126,42 @@ export default class FormList extends Vue {
             }                           
         }
         this.UpdateCommonStepResults({data:{'submittedPdfList':this.formsList.map(form => form.pdfType)}});
+        this.addMissingOrders();
         Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
+    }
+
+    public addMissingOrders() {
+        const locationSurvey = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result
+        const filingLocationSurvey = locationSurvey.filingLocationSurvey;
+        const fileNumber = filingLocationSurvey.data?.ExistingFamilyCase == "y"? filingLocationSurvey.data.ExistingFileNumber: '';
+        const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders'];
+        
+        let newExistingOrders = existingOrders;
+        for(const form of this.formsList){
+            let fileType = form.pdfType;
+            let alreadyAdded = newExistingOrders.filter(o => o.type == form.pdfType).length > 0;
+            if (!alreadyAdded)
+            {
+                newExistingOrders.push({type: fileType, filingLocation: filingLocationSurvey.data.ExistingCourt, fileNumber: fileNumber});
+            }
+        }
+
+        this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
     }
 
     public isForm1(){
         const locationSurvey = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result
        
         if(locationSurvey?.filingLocationSurvey?.data){
-            
             const location = locationSurvey.filingLocationSurvey.data.ExistingCourt;
-            if( Vue.filter('includedInRegistries')(location, 'early-resolutions') && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
+            
+            let MetEarlyResolutionRequirements = locationSurvey.MetEarlyResolutionRequirements;
+            
+            if (typeof MetEarlyResolutionRequirements == 'undefined' || MetEarlyResolutionRequirements == null) {
+                MetEarlyResolutionRequirements = locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements;
+            }
+ 
+            if( Vue.filter('includedInRegistries')(location, 'early-resolutions') && (MetEarlyResolutionRequirements == 'n' || locationSurvey?.courtLocationVictoriaSurrey))                    
                 return true
             else 
                 return false

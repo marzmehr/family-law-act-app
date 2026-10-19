@@ -173,6 +173,7 @@ export interface childSupportAboutExistingInfoType {
     exstngOrdr: boolean;
     fldDrctr: boolean;
     cancelOrdr: boolean;
+    suspendOrdr: boolean;
     changeOrdr: boolean;
     changeList: string[];
     changes: changesinfoType;
@@ -400,4 +401,36 @@ export interface existingSpousalSupportPayDetails {
 
 export interface aboutExistingSpousalSupportInfoType {
     chSinceOrder: string;
+}
+
+export interface compAnimalDataInfoType {
+    animalName?: string;
+    animalOwnership?: string;
+    animalType?: string;
+}
+
+export interface schedule11DataInfoType {    
+    compAnimalInfo: compAnimalDataInfoType[];
+    compAnimalFacts?: string;
+}
+
+export interface schedule12DataInfoType {
+    agreementDate?: string;
+    reason: string;
+    replace: boolean;
+    agreementReplacementDetails: string;
+    setAside: boolean;
+}
+
+export interface schedule101DataInfoType {
+    newOrderDetails: string;
+    disagreeReason: string;
+    spouse: boolean;
+    relationshipDetails: string;    
+}
+
+export interface schedule102DataInfoType {
+    disagreeReason: string;
+    replace: boolean;
+    replaceDetails: string;   
 }

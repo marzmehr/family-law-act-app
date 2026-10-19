@@ -85,7 +85,7 @@
                      "titleLocation": "hidden",
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'n'",
-                     "body": "You can find a map of the court locations and addresses <a href=\"https://www.provincialcourt.bc.ca/locations-contacts\" target=\"_blank\">here</a>. If two locations are both close, you can decide which is closest for filing your application. If the other party doesn’t agree, they can ask the court to transfer the file to the other location. It will then be up to the court to decide where the file is located."
+                     "body": "You can find a map of the court locations and addresses <a href=\"https://www2.gov.bc.ca/gov/content/justice/criminal-justice/bcs-criminal-justice-system/services-and-resources/courthouse-services\" target=\"_blank\">here</a>. If two locations are both close, you can decide which is closest for filing your application. If the other party doesn’t agree, they can ask the court to transfer the file to the other location. It will then be up to the court to decide where the file is located."
                   },
                   {
                      "type": "helptext",
